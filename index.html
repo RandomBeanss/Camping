@@ -405,89 +405,6 @@
             transform: translateY(-5px);
         }
         
-        /* 彈出視窗 */
-        .modal {
-            display: none;
-            position: fixed;
-            z-index: 1000;
-            left: 0;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.7);
-            animation: fadeIn 0.3s;
-        }
-        
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
-        }
-        
-        .modal-content {
-            background: white;
-            margin: 5% auto;
-            padding: 3rem;
-            border-radius: 15px;
-            width: 90%;
-            max-width: 500px;
-            position: relative;
-            animation: slideDown 0.3s;
-        }
-        
-        @keyframes slideDown {
-            from {
-                transform: translateY(-100px);
-                opacity: 0;
-            }
-            to {
-                transform: translateY(0);
-                opacity: 1;
-            }
-        }
-        
-        .close {
-            position: absolute;
-            right: 20px;
-            top: 20px;
-            font-size: 2rem;
-            cursor: pointer;
-            color: #999;
-            transition: color 0.3s;
-        }
-        
-        .close:hover {
-            color: #2c5f2d;
-        }
-        
-        .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .form-group label {
-            display: block;
-            margin-bottom: 0.5rem;
-            color: #2c5f2d;
-            font-weight: bold;
-        }
-        
-        .form-group input,
-        .form-group select,
-        .form-group textarea {
-            width: 100%;
-            padding: 0.8rem;
-            border: 2px solid #ddd;
-            border-radius: 8px;
-            font-size: 1rem;
-            transition: border-color 0.3s;
-        }
-        
-        .form-group input:focus,
-        .form-group select:focus,
-        .form-group textarea:focus {
-            outline: none;
-            border-color: #97bc62;
-        }
-        
         /* Footer */
         footer {
             background: #2c5f2d;
@@ -565,7 +482,7 @@
         <div class="hero-content">
             <h2>全台最大VRC線下露營活動</h2>
             <p>和兄弟一起留下永生難忘的美好回憶</p>
-            <button class="cta-button" onclick="openModal()">立即預訂</button>
+            <a href="https://docs.google.com/forms/d/e/1FAIpQLScOKhlPGw48FKb8uu3H2CODzfjshdjwVly0_7XbE5F-xouzsQ/viewform?usp=dialog" target="_blank" class="cta-button">立即預訂</a>
         </div>
     </div>
     
@@ -620,7 +537,7 @@
                         <li>免費 WiFi</li>
                         <li>烤肉區使用</li>
                     </ul>
-                    <button class="cta-button" onclick="openModal()">選擇方案</button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScOKhlPGw48FKb8uu3H2CODzfjshdjwVly0_7XbE5F-xouzsQ/viewform?usp=dialog" target="_blank" class="cta-button">選擇方案</a>
                 </div>
                 
                 <div class="price-card featured">
@@ -635,7 +552,7 @@
                         <li>免費裝備租借</li>
                         <li>迎賓飲料</li>
                     </ul>
-                    <button class="cta-button" onclick="openModal()">選擇方案</button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScOKhlPGw48FKb8uu3H2CODzfjshdjwVly0_7XbE5F-xouzsQ/viewform?usp=dialog" target="_blank" class="cta-button">選擇方案</a>
                 </div>
                 
                 <div class="price-card">
@@ -651,7 +568,7 @@
                         <li>BBQ 食材代訂</li>
                         <li>星空導覽活動</li>
                     </ul>
-                    <button class="cta-button" onclick="openModal()">選擇方案</button>
+                    <a href="https://docs.google.com/forms/d/e/1FAIpQLScOKhlPGw48FKb8uu3H2CODzfjshdjwVly0_7XbE5F-xouzsQ/viewform?usp=dialog" target="_blank" class="cta-button">選擇方案</a>
                 </div>
             </div>
         </div>
@@ -707,60 +624,6 @@
         </div>
     </div>
     
-    <!-- 預約表單彈出視窗 -->
-    <div id="bookingModal" class="modal">
-        <div class="modal-content">
-            <span class="close" onclick="closeModal()">&times;</span>
-            <h2 style="color: #2c5f2d; margin-bottom: 2rem;">立即預約</h2>
-            <form onsubmit="handleSubmit(event)">
-                <div class="form-group">
-                    <label>姓名 *</label>
-                    <input type="text" required placeholder="請輸入您的姓名">
-                </div>
-                
-                <div class="form-group">
-                    <label>電話 *</label>
-                    <input type="tel" required placeholder="0912-345-678">
-                </div>
-                
-                <div class="form-group">
-                    <label>Email *</label>
-                    <input type="email" required placeholder="example@email.com">
-                </div>
-                
-                <div class="form-group">
-                    <label>選擇營地 *</label>
-                    <select required>
-                        <option value="">請選擇</option>
-                        <option>高山雲海營地</option>
-                        <option>海邊日出營地</option>
-                        <option>森林秘境營地</option>
-                        <option>櫻花溪谷營地</option>
-                        <option>蝴蝶生態營地</option>
-                        <option>田園風光營地</option>
-                    </select>
-                </div>
-                
-                <div class="form-group">
-                    <label>入住日期 *</label>
-                    <input type="date" required>
-                </div>
-                
-                <div class="form-group">
-                    <label>人數 *</label>
-                    <input type="number" min="1" required placeholder="請輸入人數">
-                </div>
-                
-                <div class="form-group">
-                    <label>備註</label>
-                    <textarea rows="3" placeholder="有任何特殊需求請告訴我們"></textarea>
-                </div>
-                
-                <button type="submit" class="cta-button" style="width: 100%;">送出預約</button>
-            </form>
-        </div>
-    </div>
-    
     <!-- 回到頂部按鈕 -->
     <div class="back-to-top" onclick="scrollToTop()">↑</div>
     
@@ -770,17 +633,10 @@
         <p>📧 Email: info@camping-paradise.com</p>
         <p>📍 地址: 台北市信義區露營路123號</p>
         
-        <div class="social-links">
-            <a href="#" title="Facebook">📘</a>
-            <a href="#" title="Instagram">📷</a>
-            <a href="#" title="LINE">💬</a>
-            <a href="#" title="YouTube">📺</a>
-        </div>
-        
         <p style="margin-top: 2rem; opacity: 0.8;">
-            &copy; 2024 露營天堂 | 讓每一次露營都成為美好回憶
+            &copy; 2026 搖曳露營 | 讓我們共同創造美好回憶
         </p>
-        <p style="opacity: 0.6;">營業時間: 週一至週日 09:00-21:00</p>
+        <p style="opacity: 0.6;">活動日期：2026/02/27-03/01</p>
     </footer>
     
     <script>
@@ -801,33 +657,6 @@
                 behavior: 'smooth'
             });
         }
-        
-        // 開啟預約表單
-        function openModal() {
-            document.getElementById('bookingModal').style.display = 'block';
-        }
-        
-        // 關閉預約表單
-        function closeModal() {
-            document.getElementById('bookingModal').style.display = 'none';
-        }
-        
-        // 點擊外部關閉
-        window.onclick = function(event) {
-            const modal = document.getElementById('bookingModal');
-            if (event.target == modal) {
-                modal.style.display = 'none';
-            }
-        }
-        
-        // 表單提交
-        function handleSubmit(event) {
-            event.preventDefault();
-            alert('感謝您的預約！我們會盡快與您聯繫確認。');
-            closeModal();
-        }
     </script>
 </body>
 </html>
-
-
