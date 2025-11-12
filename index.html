@@ -30,7 +30,7 @@
     .section-title { text-align:center; color:#2c5f2d; font-size:2.4rem; margin:3rem 0 2rem; position:relative; padding-bottom:1rem; }
     .section-title::after { content:''; position:absolute; bottom:0; left:50%; transform:translateX(-50%); width:100px; height:4px; background:linear-gradient(90deg,#2c5f2d,#97bc62); border-radius:2px; }
 
-    /* 特色 - 1行4格，字體加大 */
+    /* 特色 */
     .features { display:grid; grid-template-columns: repeat(4,1fr); gap:1.5rem; margin:3rem 0; }
     .feature-card { background:#fff; padding:2.2rem; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,.1); text-align:center; transition: all .3s; position:relative; overflow:hidden; }
     .feature-card::before { content:''; position:absolute; inset:0; left:-100%; background:linear-gradient(90deg,transparent,rgba(151,188,98,.2),transparent); transition:left .5s; }
@@ -39,8 +39,47 @@
     .feature-card h3 { color:#204a20; margin-bottom:1rem; font-size:1.7rem; letter-spacing:.3px; }
     .feature-card p { color:#4a4a4a; font-size:1.1rem; line-height:1.9; }
 
+    /* 露營小知識 */
+    .tips-section { padding: 2rem 0 3rem; }
+    .tips-wrap { display:grid; grid-template-columns: 1.2fr .8fr; gap: 1.8rem; }
+    .tips-card, .tips-list, .tips-video { background:#fff; border-radius:16px; padding:1.4rem 1.6rem; box-shadow:0 8px 20px rgba(0,0,0,.06); border:1px solid rgba(44,95,45,.06); }
+    .tips-title { display:flex; align-items:center; gap:.6rem; color:#2c5f2d; font-size:1.4rem; font-weight:800; margin-bottom:.6rem; }
+    .tips-desc { color:#4a4a4a; margin-bottom: .8rem; }
+
+    /* Q&A 圖片輪播 */
+    .qa-gallery { position: relative; margin-bottom: 1.2rem; border-radius: 12px; overflow: hidden; background: #f5f5f5; }
+    .qa-gallery-track { display: flex; transition: transform .5s cubic-bezier(.22,.61,.36,1); }
+    .qa-gallery-slide { min-width: 100%; aspect-ratio: 16/9; }
+    .qa-gallery-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+    .qa-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(44,95,45,.8); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s, transform .2s; z-index: 10; }
+    .qa-arrow:hover { background: rgba(151,188,98,.95); transform: translateY(-50%) scale(1.1); }
+    .qa-arrow.prev { left: 8px; }
+    .qa-arrow.next { right: 8px; }
+    .qa-dots { display: flex; justify-content: center; gap: .4rem; padding: .6rem 0; position: absolute; bottom: 8px; left: 50%; transform: translateX(-50%); z-index: 10; }
+    .qa-dot { width: 8px; height: 8px; border-radius: 50%; background: rgba(255,255,255,.5); cursor: pointer; transition: background .2s, transform .2s; }
+    .qa-dot.active { background: #fff; transform: scale(1.2); }
+
+    .accordion { border-top:1px dashed #cfe6c4; }
+    .acc-item { border-bottom:1px dashed #cfe6c4; }
+    .acc-btn { width:100%; text-align:left; background:transparent; border:none; padding: .9rem 0; font-size:1.05rem; color:#204a20; font-weight:700; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+    .acc-btn span { flex: 1; padding-right: .8rem; }
+    .acc-icon { width:22px; height:22px; border-radius:50%; background:#e9f4e2; color:#2c5f2d; display:flex; align-items:center; justify-content:center; font-weight:900; }
+    .acc-panel { max-height:0; overflow:hidden; transition:max-height .35s ease; color:#444; line-height:1.8; padding-right:.4rem; }
+    .acc-panel.open { padding-bottom:.8rem; }
+    .tips-list ul { list-style: none; margin-top:.4rem; }
+    .tips-list li { display:flex; align-items:flex-start; gap:.6rem; padding:.5rem 0; border-bottom:1px dashed #eef6ea; }
+    .tips-list li:last-child { border-bottom:none; }
+    .bullet { width:8px; height:8px; border-radius:50%; margin-top:.5rem; background:#97bc62; }
+    .note { margin-top: .9rem; padding:.8rem 1rem; border-radius:10px; background:#fff7e6; color:#8a5a00; border:1px solid #ffe0a8; font-size:.98rem; }
+    .tips-badges { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.6rem; }
+    .tips-badge { font-size:.8rem; padding:.22rem .5rem; border-radius:999px; background:#e9f4e2; color:#2c5f2d; border:1px solid #cfe6c4; }
+
+    /* 露營介紹影片 */
+    .yt-frame { width:100%; aspect-ratio:16/9; border:0; border-radius:12px; background:#000; margin-top:.6rem; }
+
     /* 參加者推薦 - 輪播樣式 */
     .recommend-section { padding: 4rem 0; background: #f7fbf3; }
+    .carousel-wrapper { position: relative; max-width: 1400px; margin: 0 auto; padding: 0 80px; }
     .carousel { position: relative; overflow: hidden; border-radius: 16px; }
     .carousel-track { display: flex; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
     .slide { min-width: 100%; padding: 2rem 1rem; }
@@ -59,12 +98,11 @@
     .controls { display:flex; justify-content:center; align-items:center; gap:.6rem; margin-top:1.2rem; }
     .dot { width:10px; height:10px; border-radius:50%; background:#cfe6c4; cursor:pointer; transition:transform .2s, background .2s; }
     .dot.active { background:#2c5f2d; transform: scale(1.15); }
-    .arrow { position:absolute; top:50%; transform: translateY(-50%); background:#2c5f2d; color:#fff; border:none; width:42px; height:42px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,.18); transition: background .2s, transform .2s; }
-    .arrow:hover { background:#97bc62; transform: translateY(-50%) scale(1.05); }
-    .arrow.prev { left: 12px; }
-    .arrow.next { right: 12px; }
+    .arrow { position:absolute; top:50%; transform: translateY(-50%); background:#2c5f2d; color:#fff; border:none; width:50px; height:50px; border-radius:50%; display:flex; align-items:center; justify-content:center; cursor:pointer; box-shadow:0 6px 16px rgba(0,0,0,.18); transition: background .2s, transform .2s; z-index: 20; font-size: 1.5rem; }
+    .arrow:hover { background:#97bc62; transform: translateY(-50%) scale(1.1); }
+    .arrow.prev { left: 10px; }
+    .arrow.next { right: 10px; }
 
-    /* CTA 按鈕與其他 */
     .cta-button { display:inline-block; background: linear-gradient(135deg,#2c5f2d 0%,#97bc62 100%); color:#fff; padding:1.1rem 2.6rem; text-decoration:none; border-radius:50px; font-size:1.2rem; margin:1.6rem 0; transition: all .3s; box-shadow:0 5px 15px rgba(0,0,0,.2); border:none; cursor:pointer; }
     .cta-button:hover { transform: translateY(-3px); box-shadow:0 10px 25px rgba(0,0,0,.3); }
 
@@ -79,6 +117,8 @@
     /* 響應式 */
     @media (max-width: 1200px) {
       .features { grid-template-columns: repeat(2,1fr); }
+      .tips-wrap { grid-template-columns: 1fr; }
+      .carousel-wrapper { padding: 0 60px; }
     }
     @media (max-width: 992px) {
       .cards { grid-template-columns: repeat(2,1fr); }
@@ -91,6 +131,8 @@
       .section-title { font-size: 2rem; }
       .features { grid-template-columns: 1fr; }
       .cards { grid-template-columns: 1fr; }
+      .carousel-wrapper { padding: 0 50px; }
+      .arrow { width: 40px; height: 40px; }
     }
   </style>
 </head>
@@ -135,6 +177,103 @@
         <p>提供裝備租借網站<br>提供裝備租借知識<br>提供食材建議</p>
       </div>
     </div>
+
+    <!-- 露營小知識 -->
+    <section class="tips-section" id="tips">
+      <h2 class="section-title">露營小知識</h2>
+      <div class="tips-wrap">
+        <!-- 左：圖片輪播 + 手風琴Q&A -->
+        <div class="tips-card">
+          <div class="tips-title">🧭 新手必看 Q&A</div>
+          <p class="tips-desc">第一次露營也不怕！以下整理最常見問題與實用建議。</p>
+          
+          <!-- 圖片輪播 -->
+          <div class="qa-gallery">
+            <button class="qa-arrow prev" aria-label="上一張">‹</button>
+            <div class="qa-gallery-track" id="qaGalleryTrack">
+              <div class="qa-gallery-slide">
+                <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=800&h=450&fit=crop" alt="露營帳篷與星空" />
+              </div>
+              <div class="qa-gallery-slide">
+                <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=800&h=450&fit=crop" alt="營火與朋友" />
+              </div>
+              <div class="qa-gallery-slide">
+                <img src="https://images.unsplash.com/photo-1537905569824-f89f14cceb68?w=800&h=450&fit=crop" alt="山林露營景觀" />
+              </div>
+              <div class="qa-gallery-slide">
+                <img src="https://images.unsplash.com/photo-1445308394109-4ec2920981b1?w=800&h=450&fit=crop" alt="露營裝備" />
+              </div>
+              <div class="qa-gallery-slide">
+                <img src="https://images.unsplash.com/photo-1487730116645-74489c95b41b?w=800&h=450&fit=crop" alt="日出露營" />
+              </div>
+            </div>
+            <button class="qa-arrow next" aria-label="下一張">›</button>
+            <div class="qa-dots" id="qaDots">
+              <span class="qa-dot active" data-index="0"></span>
+              <span class="qa-dot" data-index="1"></span>
+              <span class="qa-dot" data-index="2"></span>
+              <span class="qa-dot" data-index="3"></span>
+              <span class="qa-dot" data-index="4"></span>
+            </div>
+          </div>
+
+          <div class="accordion" id="accordion">
+            <div class="acc-item">
+              <button class="acc-btn"><span>我要帶哪些必備裝備？</span><i class="acc-icon">+</i></button>
+              <div class="acc-panel">
+                帳篷、睡墊/充氣床、睡袋、頭燈/營燈、延長線、露營椅桌、炊具與餐具、個人藥品、備用衣物、雨具、防蚊、防曬，以及垃圾袋。若有租借服務可減輕負擔。
+              </div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn"><span>怎麼選帳篷與睡袋溫標？</span><i class="acc-icon">+</i></button>
+              <div class="acc-panel">
+                帳篷以「人數+1」更舒適並注意耐水壓；睡袋看最低使用溫度，平地秋冬建議舒適溫標約 5–10°C，山區需再降級，搭配睡墊保暖更關鍵。
+              </div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn"><span>營區禮節有哪些？</span><i class="acc-icon">+</i></button>
+              <div class="acc-panel">
+                22:00 後降低音量、勿穿越他人帳篷區、公共區域保持整潔、帶走垃圾、營火受控且離開時務必熄滅，尊重自然與其他露友。
+              </div>
+            </div>
+            <div class="acc-item">
+              <button class="acc-btn"><span>遇到下雨怎麼辦？</span><i class="acc-icon">+</i></button>
+              <div class="acc-panel">
+                檢查帳篷外帳與地布、拉好營繩；行李用防水袋打包；鞋子架高防積水；備雨衣而非只帶雨傘。離場前擦乾並回家後曬帳防發霉。
+              </div>
+            </div>
+          </div>
+          <div class="tips-badges">
+            <span class="tips-badge">裝備清單</span>
+            <span class="tips-badge">禮節</span>
+            <span class="tips-badge">防雨對策</span>
+            <span class="tips-badge">保暖</span>
+          </div>
+        </div>
+
+        <!-- 右：快速清單 + 露營介紹 -->
+        <div class="tips-list">
+          <div class="tips-title">🧰 快速檢查清單</div>
+          <ul>
+            <li><span class="bullet"></span><div>照明：頭燈/營燈、備用電池或行動電源</div></li>
+            <li><span class="bullet"></span><div>睡眠：睡袋、睡墊、枕頭、保暖衣物</div></li>
+            <li><span class="bullet"></span><div>炊事：卡式爐/噴射爐、瓦斯罐、打火機、餐具</div></li>
+            <li><span class="bullet"></span><div>水與冰：飲用水、保冰箱、冰磚或冰塊</div></li>
+            <li><span class="bullet"></span><div>清潔：垃圾袋、衛生紙、濕紙巾、環保洗劑</div></li>
+            <li><span class="bullet"></span><div>安全：個人藥品、蟲咬藥、防蚊液、防曬、頭盔(活動)</div></li>
+          </ul>
+          <div class="note">提醒：山區日夜溫差大，晚間易起風，請備保暖層與防風外套；若參加水上或競技活動，務必遵守工作人員指示。</div>
+
+          <!-- 露營介紹 -->
+          <div class="tips-video" style="margin-top:1rem;">
+            <div class="tips-title">▶️ 露營介紹</div>
+            <p class="tips-desc">精選影片帶你快速了解露營的魅力與注意事項。</p>
+            <iframe class="yt-frame" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen
+              src="https://www.youtube.com/embed/dQw4w9WgXcQ?rel=0"></iframe>
+          </div>
+        </div>
+      </div>
+    </section>
   </div>
 
   <!-- 參加者推薦（輪播） -->
@@ -142,169 +281,134 @@
     <div class="container">
       <h2 class="section-title">參加者推薦</h2>
 
-      <div class="carousel" aria-roledescription="carousel">
+      <div class="carousel-wrapper">
         <button class="arrow prev" aria-label="上一頁">‹</button>
-        <div class="carousel-track" id="carouselTrack">
-          <!-- Slide 1 -->
-          <div class="slide">
-            <div class="cards">
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=12" alt="頭像-小柏"/>
-                  <div class="meta">
-                    <span class="name">小柏</span>
-                    <span class="date">2025-10-21</span>
-                    <div class="tags">
-                      <span class="tag">夜衝</span>
-                      <span class="tag">DJ 電音</span>
+        <div class="carousel" aria-roledescription="carousel">
+          <div class="carousel-track" id="carouselTrack">
+            <div class="slide">
+              <div class="cards">
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=12" alt="頭像-小柏"/>
+                    <div class="meta">
+                      <span class="name">小柏</span>
+                      <span class="date">2025-10-21</span>
+                      <div class="tags"><span class="tag">夜衝</span><span class="tag">DJ 電音</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐⭐</div>
+                  <p class="content">第一次參加就愛上！夜晚的電音派對超嗨，清晨喝著手沖看日出，真的爽！</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐⭐</div>
-                <p class="content">第一次參加就愛上！夜晚的電音派對超嗨，清晨喝著手沖看日出，真的爽！</p>
-              </div>
-
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=32" alt="頭像-阿葵"/>
-                  <div class="meta">
-                    <span class="name">阿葵</span>
-                    <span class="date">2025-11-02</span>
-                    <div class="tags">
-                      <span class="tag">露營新手</span>
-                      <span class="tag">裝備租借</span>
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=32" alt="頭像-阿葵"/>
+                    <div class="meta">
+                      <span class="name">阿葵</span>
+                      <span class="date">2025-11-02</span>
+                      <div class="tags"><span class="tag">露營新手</span><span class="tag">裝備租借</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐</div>
+                  <p class="content">不用自己準備太多東西，有租借清單很貼心！浴室乾淨，女生也安心。</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐</div>
-                <p class="content">不用自己準備太多東西，有租借清單很貼心！浴室乾淨，女生也安心。</p>
-              </div>
-
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=5" alt="頭像-Tank"/>
-                  <div class="meta">
-                    <span class="name">Tank</span>
-                    <span class="date">2025-09-15</span>
-                    <div class="tags">
-                      <span class="tag">水彈槍</span>
-                      <span class="tag">團隊競技</span>
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=5" alt="頭像-Tank"/>
+                    <div class="meta">
+                      <span class="name">Tank</span>
+                      <span class="date">2025-09-15</span>
+                      <div class="tags"><span class="tag">水彈槍</span><span class="tag">團隊競技</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐⭐</div>
+                  <p class="content">水彈槍對戰太刺激，整隊打到忘記時間，晚上烤肉暢飲直接收尾！</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐⭐</div>
-                <p class="content">水彈槍對戰太刺激，整隊打到忘記時間，晚上烤肉暢飲直接收尾！</p>
               </div>
             </div>
-          </div>
 
-          <!-- Slide 2 -->
-          <div class="slide">
-            <div class="cards">
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=15" alt="頭像-Nova"/>
-                  <div class="meta">
-                    <span class="name">Nova</span>
-                    <span class="date">2025-08-08</span>
-                    <div class="tags">
-                      <span class="tag">星空</span>
-                      <span class="tag">手沖咖啡</span>
+            <div class="slide">
+              <div class="cards">
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=15" alt="頭像-Nova"/>
+                    <div class="meta">
+                      <span class="name">Nova</span>
+                      <span class="date">2025-08-08</span>
+                      <div class="tags"><span class="tag">星空</span><span class="tag">手沖咖啡</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐⭐</div>
+                  <p class="content">夜空超清晰，銀河直接看得到。主辦的咖啡很好喝，氛圍滿分。</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐⭐</div>
-                <p class="content">夜空超清晰，銀河直接看得到。主辦的咖啡很好喝，氛圍滿分。</p>
-              </div>
-
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=23" alt="頭像-Kiwi"/>
-                  <div class="meta">
-                    <span class="name">Kiwi</span>
-                    <span class="date">2025-07-28</span>
-                    <div class="tags">
-                      <span class="tag">朋友聚會</span>
-                      <span class="tag">社交</span>
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=23" alt="頭像-Kiwi"/>
+                    <div class="meta">
+                      <span class="name">Kiwi</span>
+                      <span class="date">2025-07-28</span>
+                      <div class="tags"><span class="tag">朋友聚會</span><span class="tag">社交</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐</div>
+                  <p class="content">很多同好可以交流，交到新朋友。希望下次可以多一點電音時段！</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐</div>
-                <p class="content">很多同好可以交流，交到新朋友。希望下次可以多一點電音時段！</p>
-              </div>
-
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=44" alt="頭像-阿哲"/>
-                  <div class="meta">
-                    <span class="name">阿哲</span>
-                    <span class="date">2025-06-19</span>
-                    <div class="tags">
-                      <span class="tag">輕量化</span>
-                      <span class="tag">純露體驗</span>
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=44" alt="頭像-阿哲"/>
+                    <div class="meta">
+                      <span class="name">阿哲</span>
+                      <span class="date">2025-06-19</span>
+                      <div class="tags"><span class="tag">輕量化</span><span class="tag">純露體驗</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐⭐</div>
+                  <p class="content">場地挑得好，風景跟動線都很舒服，活動節奏拿捏得剛剛好。</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐⭐</div>
-                <p class="content">場地挑得好，風景跟動線都很舒服，活動節奏拿捏得剛剛好。</p>
               </div>
             </div>
-          </div>
 
-          <!-- Slide 3 -->
-          <div class="slide">
-            <div class="cards">
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=9" alt="頭像-Momo"/>
-                  <div class="meta">
-                    <span class="name">Momo</span>
-                    <span class="date">2025-05-02</span>
-                    <div class="tags">
-                      <span class="tag">女生友善</span>
-                      <span class="tag">衛浴乾淨</span>
+            <div class="slide">
+              <div class="cards">
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=9" alt="頭像-Momo"/>
+                    <div class="meta">
+                      <span class="name">Momo</span>
+                      <span class="date">2025-05-02</span>
+                      <div class="tags"><span class="tag">女生友善</span><span class="tag">衛浴乾淨</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐⭐</div>
+                  <p class="content">女生廁所跟浴室真的乾淨，晚上還有小燈指示，安全感滿滿。</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐⭐</div>
-                <p class="content">女生廁所跟浴室真的乾淨，晚上還有小燈指示，安全感滿滿。</p>
-              </div>
-
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=18" alt="頭像-老吳"/>
-                  <div class="meta">
-                    <span class="name">老吳</span>
-                    <span class="date">2025-04-13</span>
-                    <div class="tags">
-                      <span class="tag">老手推薦</span>
-                      <span class="tag">裝備交流</span>
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=18" alt="頭像-老吳"/>
+                    <div class="meta">
+                      <span class="name">老吳</span>
+                      <span class="date">2025-04-13</span>
+                      <div class="tags"><span class="tag">老手推薦</span><span class="tag">裝備交流</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐</div>
+                  <p class="content">老露客也覺得不錯，主辦很細心。若有器材寄倉就更方便了。</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐</div>
-                <p class="content">老露客也覺得不錯，主辦很細心。若有器材寄倉就更方便了。</p>
-              </div>
-
-              <div class="card">
-                <div class="card-header">
-                  <img class="avatar" src="https://i.pravatar.cc/100?img=47" alt="頭像-Ren"/>
-                  <div class="meta">
-                    <span class="name">Ren</span>
-                    <span class="date">2025-03-22</span>
-                    <div class="tags">
-                      <span class="tag">交通接駁</span>
-                      <span class="tag">易抵達</span>
+                <div class="card">
+                  <div class="card-header">
+                    <img class="avatar" src="https://i.pravatar.cc/100?img=47" alt="頭像-Ren"/>
+                    <div class="meta">
+                      <span class="name">Ren</span>
+                      <span class="date">2025-03-22</span>
+                      <div class="tags"><span class="tag">交通接駁</span><span class="tag">易抵達</span></div>
                     </div>
                   </div>
+                  <div class="rating">⭐⭐⭐⭐⭐</div>
+                  <p class="content">有接駁選項超貼心，省去自己開車的麻煩，喝酒也更放心。</p>
                 </div>
-                <div class="rating">⭐⭐⭐⭐⭐</div>
-                <p class="content">有接駁選項超貼心，省去自己開車的麻煩，喝酒也更放心。</p>
               </div>
             </div>
           </div>
         </div>
-
         <button class="arrow next" aria-label="下一頁">›</button>
 
         <div class="controls" aria-label="頁面指示器">
@@ -335,11 +439,60 @@
     });
     function scrollToTop(){ window.scrollTo({ top:0, behavior:'smooth' }); }
 
-    // 輪播控制
+    // 手風琴
+    document.querySelectorAll('.acc-btn').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const panel = btn.nextElementSibling;
+        const icon = btn.querySelector('.acc-icon');
+        const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+        document.querySelectorAll('.acc-panel').forEach(p => { p.style.maxHeight = null; p.classList.remove('open'); });
+        document.querySelectorAll('.acc-icon').forEach(i => i.textContent = '+');
+        if (!open) {
+          panel.style.maxHeight = panel.scrollHeight + 'px';
+          panel.classList.add('open');
+          icon.textContent = '−';
+        } else {
+          panel.style.maxHeight = null;
+          panel.classList.remove('open');
+          icon.textContent = '+';
+        }
+      });
+    });
+
+    // Q&A 圖片輪播
+    const qaTrack = document.getElementById('qaGalleryTrack');
+    const qaDots = Array.from(document.querySelectorAll('.qa-dot'));
+    const qaPrev = document.querySelector('.qa-gallery .qa-arrow.prev');
+    const qaNext = document.querySelector('.qa-gallery .qa-arrow.next');
+    const qaSlides = Array.from(document.querySelectorAll('.qa-gallery-slide'));
+    let qaIndex = 0;
+
+    function qaGoTo(i) {
+      qaIndex = (i + qaSlides.length) % qaSlides.length;
+      qaTrack.style.transform = `translateX(-${qaIndex * 100}%)`;
+      qaDots.forEach((d, di) => d.classList.toggle('active', di === qaIndex));
+    }
+
+    qaDots.forEach(d => d.addEventListener('click', e => qaGoTo(parseInt(e.target.dataset.index))));
+    qaPrev.addEventListener('click', () => qaGoTo(qaIndex - 1));
+    qaNext.addEventListener('click', () => qaGoTo(qaIndex + 1));
+
+    // Q&A 圖片觸控滑動
+    let qaStartX = 0, qaIsDown = false;
+    qaTrack.addEventListener('pointerdown', e => { qaIsDown = true; qaStartX = e.clientX; });
+    qaTrack.addEventListener('pointerup', e => {
+      if (!qaIsDown) return; qaIsDown = false;
+      const dx = e.clientX - qaStartX;
+      if (dx > 50) qaGoTo(qaIndex - 1);
+      else if (dx < -50) qaGoTo(qaIndex + 1);
+    });
+    qaTrack.addEventListener('pointerleave', () => { qaIsDown = false; });
+
+    // 參加者推薦輪播控制
     const track = document.getElementById('carouselTrack');
     const dots = Array.from(document.querySelectorAll('.dot'));
-    const prev = document.querySelector('.arrow.prev');
-    const next = document.querySelector('.arrow.next');
+    const prev = document.querySelector('.carousel-wrapper .arrow.prev');
+    const next = document.querySelector('.carousel-wrapper .arrow.next');
     const slides = Array.from(document.querySelectorAll('.slide'));
     let index = 0;
     let timer;
@@ -351,19 +504,14 @@
       resetAuto();
     }
 
-    function autoPlay() {
-      timer = setInterval(() => { goTo(index + 1); }, 5000);
-    }
-    function resetAuto() {
-      clearInterval(timer);
-      autoPlay();
-    }
+    function autoPlay() { timer = setInterval(() => { goTo(index + 1); }, 5000); }
+    function resetAuto() { clearInterval(timer); autoPlay(); }
 
     dots.forEach(d => d.addEventListener('click', e => goTo(parseInt(e.target.dataset.index))));
     prev.addEventListener('click', () => goTo(index - 1));
     next.addEventListener('click', () => goTo(index + 1));
 
-    // 觸控滑動支援
+    // 參加者推薦觸控滑動支援
     let startX = 0, isDown = false;
     track.addEventListener('pointerdown', e => { isDown = true; startX = e.clientX; track.style.cursor='grabbing'; });
     track.addEventListener('pointerup', e => {
@@ -374,7 +522,10 @@
     });
     track.addEventListener('pointerleave', () => { isDown = false; track.style.cursor='grab'; });
 
-    // 自動播放初始化
+    // 初始化：展開第一個Q&A、啟動輪播
+    const firstPanel = document.querySelector('.acc-panel');
+    const firstIcon = document.querySelector('.acc-btn .acc-icon');
+    if (firstPanel) { firstPanel.style.maxHeight = firstPanel.scrollHeight + 'px'; firstPanel.classList.add('open'); if (firstIcon) firstIcon.textContent = '−'; }
     autoPlay();
   </script>
 </body>
