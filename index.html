@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>露營天堂 - 探索大自然</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Microsoft JhengHei', Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        header {
+            background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        header h1 {
+            font-size: 3rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        header p {
+            font-size: 1.2rem;
+        }
+        
+        nav {
+            background: #2c5f2d;
+            padding: 1rem;
+            text-align: center;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 0.5rem 1.5rem;
+            margin: 0 0.5rem;
+            border-radius: 5px;
+            transition: background 0.3s;
+        }
+        
+        nav a:hover {
+            background: #97bc62;
+        }
+        
+        .hero {
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%2397bc62" width="1200" height="600"/><path fill="%232c5f2d" d="M0 400 L300 300 L600 350 L900 250 L1200 300 L1200 600 L0 600 Z"/><circle fill="%23ffd700" cx="200" cy="150" r="60"/></svg>');
+            background-size: cover;
+            height: 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+        
+        .hero h2 {
+            font-size: 2.5rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+        
+        .feature-card {
+            background: white;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        
+        .feature-card:hover {
+            transform: translateY(-10px);
+        }
+        
+        .feature-card h3 {
+            color: #2c5f2d;
+            margin-bottom: 1rem;
+            font-size: 1.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: #2c5f2d;
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 1.2rem;
+            margin: 2rem 0;
+            transition: background 0.3s;
+        }
+        
+        .cta-button:hover {
+            background: #97bc62;
+        }
+        
+        footer {
+            background: #2c5f2d;
+            color: white;
+            text-align: center;
+            padding: 2rem;
+            margin-top: 3rem;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🏕️ 露營天堂</h1>
+        <p>與大自然來場浪漫約會</p>
+    </header>
+    
+    <nav>
+        <a href="#home">首頁</a>
+        <a href="#features">特色</a>
+        <a href="#locations">營地</a>
+        <a href="#contact">聯絡我們</a>
+    </nav>
+    
+    <div class="hero">
+        <h2>探索台灣最美的露營地點</h2>
+    </div>
+    
+    <div class="container">
+        <h2 style="text-align: center; color: #2c5f2d; margin: 2rem 0;">為什麼選擇我們？</h2>
+        
+        <div class="features">
+            <div class="feature-card">
+                <h3>🌲 絕佳景觀</h3>
+                <p>精選台灣各地最美的露營地點，讓您在星空下入眠，在鳥鳴中醒來。</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🔥 完善設施</h3>
+                <p>提供乾淨的衛浴設備、烤肉區、兒童遊戲區等完善設施。</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>👨‍👩‍👧‍👦 適合全家</h3>
+                <p>無論是親子同遊或朋友聚會，都能找到最適合的露營方案。</p>
+            </div>
+        </div>
+        
+        <div style="text-align: center;">
+            <a href="#" class="cta-button">立即預訂</a>
+        </div>
+        
+        <h2 style="text-align: center; color: #2c5f2d; margin: 3rem 0 2rem 0;">熱門營地推薦</h2>
+        
+        <div class="features">
+            <div class="feature-card">
+                <h3>🏔️ 高山雲海營地</h3>
+                <p>海拔1500公尺，清晨可欣賞壯觀雲海，夜晚星空璀璨。</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🌊 海邊日出營地</h3>
+                <p>面向太平洋，聽著海浪聲入睡，迎接第一道曙光。</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>🌳 森林秘境營地</h3>
+                <p>被原始森林環繞，享受芬多精與蟲鳴鳥叫的自然交響樂。</p>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <p>&copy; 2024 露營天堂 | 讓每一次露營都成為美好回憶</p>
+        <p>聯絡電話: 0800-123-456 | Email: info@camping-paradise.com</p>
+    </footer>
+</body>
+</html>
