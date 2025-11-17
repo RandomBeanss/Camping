@@ -166,6 +166,7 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
   background: white;
   border-radius: 16px;
   padding: 24px 28px;
+  min-height: 160px;
   box-shadow: 0 4px 20px rgba(0,0,0,0.08);
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   border-left: 5px solid #ddd;
@@ -255,6 +256,13 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
   color: #555;
   line-height: 1.6;
   margin: 0;
+}
+/* 資訊卡片內分隔線 */
+.info-divider {
+  width: 100%;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, #e0e0e0, transparent);
+  margin: 16px 0 4px;
 }
 
 /* 倒數計時徽章 */
@@ -636,67 +644,58 @@ footer a:hover { color:#fff; }
       </iframe>
     </div>
     
-    <!-- 右側：資訊卡片 -->
-    <div class="info-cards">
-      <h2 class="info-card-title">活動資訊</h2>
+<!-- 右側：資訊卡片 -->
+<div class="info-cards">
+  <h2 class="info-card-title">活動資訊</h2>
+  
+  <!-- 活動日期 + 報名截止（合併） -->
+  <div class="info-card date-card">
+    <div class="info-icon">📅</div>
+    <div class="info-content">
+      <span class="info-label">活動日期</span>
+      <p class="info-text">2026/02/27(五) - 03/01(日)</p>
+      <span class="countdown-badge" id="countdown">⏰ 計算中...</span>
       
-      <!-- 活動日期卡片 -->
-      <div class="info-card date-card">
-        <div class="info-icon">📅</div>
-        <div class="info-content">
-          <span class="info-label">活動日期</span>
-          <p class="info-text">2026/02/27(五) - 03/01(日)</p>
-          <span class="countdown-badge" id="countdown">⏰ 計算中...</span>
-        </div>
-      </div>
+      <div class="info-divider"></div>
       
-      <!-- 報名截止卡片 -->
-      <div class="info-card deadline-card">
-        <div class="info-icon">⏰</div>
-        <div class="info-content">
-          <span class="info-label">報名截止日期</span>
-          <p class="info-text">2026/01/31(六) 23:59</p>
-        </div>
-      </div>
-      
-      <!-- 參加費用卡片 -->
-      <div class="info-card fee-card">
-        <div class="info-icon">💰</div>
-        <div class="info-content">
-          <span class="info-label">參加場地費</span>
-          <p class="info-text">每人 NT$ 1,300 元</p>
-        </div>
-      </div>
-      
-      <!-- 營地地址卡片 -->
-      <div class="info-card location-card">
-        <div class="info-icon">🏕️</div>
-        <div class="info-content">
-          <span class="info-label">營地地址</span>
-          <p class="info-text">嘉義阿里山 禾田農莊</p>
-        </div>
-      </div>
-      
-      <!-- 交通方式卡片 -->
-      <div class="info-card transport-card">
-        <div class="info-icon">🚗</div>
-        <div class="info-content">
-          <span class="info-label">交通方式</span>
-          <p class="info-text">嘉義火車站 → 禾田農莊 (車程約65分鐘)</p>
-        </div>
-      </div>
-      
-      <!-- 友軍支援卡片 -->
-      <div class="info-card support-card">
-        <div class="info-icon">🚌</div>
-        <div class="info-content">
-          <span class="info-label">友軍支援</span>
-          <p class="info-text">嘉義火車站 → 禾田農莊 (每人每趟補貼250元油錢)</p>
-        </div>
-      </div>
-      
+      <span class="info-label" style="margin-top: 12px;">報名截止日期</span>
+      <p class="info-text">2026/01/31(六) 23:59</p>
     </div>
   </div>
+  
+  <!-- 參加費用 + 營地地址（合併） -->
+  <div class="info-card fee-card">
+    <div class="info-icon">💰</div>
+    <div class="info-content">
+      <span class="info-label">參加場地費</span>
+      <p class="info-text">每人 NT$ 1,300 元</p>
+      
+      <div class="info-divider"></div>
+      
+      <span class="info-label" style="margin-top: 12px;">營地地址</span>
+      <p class="info-text">🏕️ 嘉義阿里山 禾田農莊</p>
+    </div>
+  </div>
+  
+  <!-- 交通方式卡片 -->
+  <div class="info-card transport-card">
+    <div class="info-icon">🚗</div>
+    <div class="info-content">
+      <span class="info-label">交通方式</span>
+      <p class="info-text">嘉義火車站 → 禾田農莊 (車程約65分鐘)</p>
+    </div>
+  </div>
+  
+  <!-- 友軍支援卡片 -->
+  <div class="info-card support-card">
+    <div class="info-icon">🚌</div>
+    <div class="info-content">
+      <span class="info-label">友軍支援</span>
+      <p class="info-text">嘉義火車站 → 禾田農莊 (每人每趟補貼250元油錢)</p>
+    </div>
+  </div>
+</div>
+    
 </section>
 
 <!-- 第一屆精彩回顧 -->
@@ -1334,6 +1333,7 @@ console.log('🏕️ 搖曳露營網站已完全載入!');
 </script>
 </body>
 </html>
+
 
 
 
