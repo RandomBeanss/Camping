@@ -743,33 +743,68 @@ footer a:hover { color:#fff; }
 <script>
 // ========== 倒數計時功能 ==========
 function updateCountdown() {
-  const eventDate = new Date('2026-02-27T00:00:00+08:00');
-  const now = new Date();
-  const diff = eventDate - now;
-  
   const countdownEl = document.getElementById('countdown');
   
-  if (diff <= 0) {
-    countdownEl.textContent = '🎉 活動進行中!';
-    countdownEl.style.background = 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)';
+  // 檢查元素是否存在
+  if (!countdownEl) {
+    console.error('找不到倒數計時元素');
     return;
   }
   
-  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-  
-  if (days > 0) {
-    countdownEl.textContent = `⏰ 還有 ${days} 天`;
-  } else if (hours > 0) {
-    countdownEl.textContent = `⏰ 還有 ${hours} 小時`;
-  } else {
+  try {
+    // 設定活動日期 (台灣時區 UTC+8)
+    const eventDate = new Date('2026-02-27T00:00:00+08:00');
+    const now = new Date();
+    const diff = eventDate - now;
+    
+    // 除錯用：顯示計算資訊
+    console.log('活動日期:', eventDate);
+    console.log('現在時間:', now);
+    console.log('時間差(毫秒):', diff);
+    
+    // 如果活動已開始
+    if (diff <= 0) {
+      countdownEl.textContent = '🎉 活動進行中!';
+      countdownEl.style.background = 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)';
+      return;
+    }
+    
+    // 計算剩餘天數、小時、分鐘
+    const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+    const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
     const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-    countdownEl.textContent = `⏰ 還有 ${minutes} 分鐘`;
+    
+    console.log(`剩餘: ${days}天 ${hours}小時 ${minutes}分鐘`);
+    
+    // 顯示倒數計時
+    if (days > 0) {
+      countdownEl.textContent = `⏰ 還有 ${days} 天`;
+    } else if (hours > 0) {
+      countdownEl.textContent = `⏰ 還有 ${hours} 小時`;
+    } else if (minutes > 0) {
+      countdownEl.textContent = `⏰ 還有 ${minutes} 分鐘`;
+    } else {
+      countdownEl.textContent = '⏰ 即將開始!';
+    }
+    
+  } catch (error) {
+    console.error('倒數計時錯誤:', error);
+    countdownEl.textContent = '⏰ 2026/02/27';
   }
 }
 
+// 立即執行一次
 updateCountdown();
+
+// 每分鐘更新一次
 setInterval(updateCountdown, 60000);
+
+// 頁面載入完成後也執行一次（確保 DOM 已準備好）
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', updateCountdown);
+} else {
+  updateCountdown();
+}
 
 // ========== Hero 照片跑馬燈 ==========
 const heroTrack = document.getElementById('heroSliderTrack');
@@ -1191,3 +1226,4 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
+
