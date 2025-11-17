@@ -26,7 +26,7 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 /* Hero 照片跑馬燈 */
 .hero { height: 560px; position: relative; overflow: hidden; }
 .hero-slider { position: absolute; inset: 0; }
-.hero-slider-track { display: flex; height: 100%; }
+.hero-slider-track { display: flex; height: 100%; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
 .hero-slide { min-width: 100%; height: 100%; position: relative; }
 .hero-slide img { width: 100%; height: 100%; object-fit: cover; }
 .hero-slide::after { content: ''; position: absolute; inset: 0; background: linear-gradient(135deg, rgba(44,95,45,.7) 0%, rgba(151,188,98,.5) 100%); }
@@ -65,10 +65,11 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 .tips-desc { color:#4a4a4a; margin-bottom: .8rem; }
 
 /* Q&A 圖片輪播 */
-.qa-gallery { position: relative; margin-bottom: 1.2rem; border-radius: 12px; overflow: hidden; background: #f5f5f5; }
+.qa-gallery { position: relative; margin-bottom: 1.2rem; border-radius: 12px; overflow: hidden; background: #f5f5f5; cursor: grab; user-select: none; }
+.qa-gallery:active { cursor: grabbing; }
 .qa-gallery-track { display: flex; transition: transform .5s cubic-bezier(.22,.61,.36,1); }
 .qa-gallery-slide { min-width: 100%; aspect-ratio: 16/9; }
-.qa-gallery-slide img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.qa-gallery-slide img { width: 100%; height: 100%; object-fit: cover; display: block; pointer-events: none; }
 .qa-arrow { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(44,95,45,.8); color: #fff; border: none; width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: background .2s, transform .2s; z-index: 10; }
 .qa-arrow:hover { background: rgba(151,188,98,.95); transform: translateY(-50%) scale(1.1); }
 .qa-arrow.prev { left: 8px; }
@@ -79,15 +80,17 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 
 .accordion { border-top:1px dashed #cfe6c4; }
 .acc-item { border-bottom:1px dashed #cfe6c4; }
-.acc-btn { width:100%; text-align:left; background:transparent; border:none; padding: .9rem 0; font-size:1.05rem; color:#204a20; font-weight:700; display:flex; justify-content:space-between; align-items:center; cursor:pointer; }
+.acc-btn { width:100%; text-align:left; background:transparent; border:none; padding: .9rem 0; font-size:1.05rem; color:#204a20; font-weight:700; display:flex; justify-content:space-between; align-items:center; cursor:pointer; transition: color .2s; }
+.acc-btn:hover { color: #97bc62; }
 .acc-btn span { flex: 1; padding-right: .8rem; }
-.acc-icon { width:22px; height:22px; border-radius:50%; background:#e9f4e2; color:#2c5f2d; display:flex; align-items:center; justify-content:center; font-weight:900; }
+.acc-icon { width:22px; height:22px; border-radius:50%; background:#e9f4e2; color:#2c5f2d; display:flex; align-items:center; justify-content:center; font-weight:900; transition: all .2s; }
+.acc-btn:hover .acc-icon { background: #2c5f2d; color: #fff; }
 .acc-panel { max-height:0; overflow:hidden; transition:max-height .35s ease; color:#444; line-height:1.8; padding-right:.4rem; }
 .acc-panel.open { padding-bottom:.8rem; }
 .tips-list ul { list-style: none; margin-top:.4rem; }
 .tips-list li { display:flex; align-items:flex-start; gap:.6rem; padding:.5rem 0; border-bottom:1px dashed #eef6ea; }
 .tips-list li:last-child { border-bottom:none; }
-.bullet { width:8px; height:8px; border-radius:50%; margin-top:.5rem; background:#97bc62; }
+.bullet { width:8px; height:8px; border-radius:50%; margin-top:.5rem; background:#97bc62; flex-shrink: 0; }
 .note { margin-top: .9rem; padding:.8rem 1rem; border-radius:10px; background:#fff7e6; color:#8a5a00; border:1px solid #ffe0a8; font-size:.98rem; }
 .tips-badges { display:flex; flex-wrap:wrap; gap:.5rem; margin-top:.6rem; }
 .tips-badge { font-size:.8rem; padding:.22rem .5rem; border-radius:999px; background:#e9f4e2; color:#2c5f2d; border:1px solid #cfe6c4; }
@@ -128,7 +131,7 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
   50% { transform: scale(1.05); }
 }
 
-/* 第一屆照片回顧 - 移除綠色漸層效果 */
+/* 第一屆照片回顧 */
 .gallery-section { padding: 4rem 0; background: linear-gradient(135deg, #f0f9eb 0%, #e9f4e2 100%); }
 .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
 .photo-item { position: relative; overflow: hidden; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,.1); transition: all .4s cubic-bezier(.22,.61,.36,1); cursor: pointer; aspect-ratio: 4/3; }
@@ -175,7 +178,7 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 .arrow.prev { left: 10px; }
 .arrow.next { right: 10px; }
 
-.cta-button { display:inline-block; background: linear-gradient(135deg,#2c5f2d 0%,#97bc62 100%); color:#fff; padding:1.1rem 2.6rem; text-decoration:none; border-radius:50px; font-size:1.2rem; transition: all .3s; box-shadow:0 5px 15px rgba(0,0,0,.2); border:none; cursor:pointer; }
+.cta-button { display:inline-block; background: linear-gradient(135deg,#2c5f2d 0%,#97bc62 100%); color:#fff; padding:1.1rem 2.6rem; text-decoration:none; border-radius:50px; font-size:1.2rem; transition: all .3s; box-shadow:0 5px 15px rgba(0,0,0,.2); border:none; cursor:pointer; font-weight: 700; }
 .cta-button:hover { transform: translateY(-3px); box-shadow:0 10px 25px rgba(0,0,0,.3); }
 
 .back-to-top { position: fixed; bottom: 30px; right: 30px; background: #2c5f2d; color: white; width: 50px; height: 50px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 1.5rem; cursor: pointer; opacity: 0; transition: all 0.3s; z-index: 1000; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
@@ -208,8 +211,8 @@ footer a:hover { color:#fff; }
   /* 導航列 - 手機版取消固定 */
   nav { 
     padding: .8rem .5rem; 
-    position: relative; /* 改為 relative,取消固定 */
-    top: auto; /* 重置 top */
+    position: relative;
+    top: auto;
   }
   nav a { 
     display: block; 
@@ -376,10 +379,10 @@ footer a:hover { color:#fff; }
     <!-- 左:圖片輪播 + 手風琴Q&A -->
     <div class="tips-card">
       <div class="tips-title">🧭 新手必看</div>
-      <p class="tips-desc">第一次露營也不怕！以下整理最常見問題與實用建議。</p>
+      <p class="tips-desc">第一次露營也不怕!以下整理最常見問題與實用建議。</p>
       
       <!-- 圖片輪播 -->
-      <div class="qa-gallery">
+      <div class="qa-gallery" id="qaGallery">
         <button class="qa-arrow prev" aria-label="上一張">‹</button>
         <div class="qa-gallery-track" id="qaGalleryTrack">
           <div class="qa-gallery-slide">
@@ -410,27 +413,27 @@ footer a:hover { color:#fff; }
 
       <div class="accordion" id="accordion">
         <div class="acc-item">
-          <button class="acc-btn"><span>我要帶哪些必備裝備？</span><i class="acc-icon">+</i></button>
+          <button class="acc-btn"><span>我要帶哪些必備裝備?</span><i class="acc-icon">+</i></button>
           <div class="acc-panel">
-            必需品：帳篷&睡墊&睡袋<br>推薦攜帶：炊具、地墊、燈具、桌椅、餐具、延長線、防蚊用品
+            必需品:帳篷&睡墊&睡袋<br>推薦攜帶:炊具、地墊、燈具、桌椅、餐具、延長線、防蚊用品
           </div>
         </div>
         <div class="acc-item">
-          <button class="acc-btn"><span>怎麼選帳篷與睡袋溫標？</span><i class="acc-icon">+</i></button>
+          <button class="acc-btn"><span>怎麼選帳篷與睡袋溫標?</span><i class="acc-icon">+</i></button>
           <div class="acc-panel">
             帳篷以「人數+1」更舒適<br>睡袋看最低使用溫度,當天建議選擇秋季睡袋,適用溫度5~15度
           </div>
         </div>
         <div class="acc-item">
-          <button class="acc-btn"><span>遇到下雨怎麼辦？</span><i class="acc-icon">+</i></button>
+          <button class="acc-btn"><span>遇到下雨怎麼辦?</span><i class="acc-icon">+</i></button>
           <div class="acc-panel">
             檢查帳篷外帳與地墊、拉好營繩<br>行李用大塑膠袋打包,鞋子架高防積水<br>但希望這些東西都用不到...
           </div>
         </div>
         <div class="acc-item">
-          <button class="acc-btn"><span>露營食材怎麼處理？</span><i class="acc-icon">+</i></button>
+          <button class="acc-btn"><span>露營食材怎麼處理?</span><i class="acc-icon">+</i></button>
           <div class="acc-panel">
-            營區提供商用冰箱,冷凍冷藏都有<br>早餐：煎蛋+麵包+起司 輕鬆簡單好處理<br>午晚餐：烤肉及網上找的簡單料理,來點小酒就更美好了！
+            營區提供商用冰箱,冷凍冷藏都有<br>早餐:煎蛋+麵包+起司 輕鬆簡單好處理<br>午晚餐:烤肉及網上找的簡單料理,來點小酒就更美好了!
           </div>
         </div>
       </div>
@@ -442,18 +445,18 @@ footer a:hover { color:#fff; }
       </div>
     </div>
 
-    <!-- 右：快速清單 + 露營介紹 -->
+    <!-- 右:快速清單 + 露營介紹 -->
     <div class="tips-list">
       <div class="tips-title">🧰 快速檢查清單</div>
       <ul>
-        <li><span class="bullet"></span><div>照明：頭燈/營燈、備用電池或行動電源</div></li>
-        <li><span class="bullet"></span><div>睡眠：睡袋、睡墊、枕頭、保暖衣物</div></li>
-        <li><span class="bullet"></span><div>炊事：卡式爐/噴射爐、瓦斯罐、打火機、餐具</div></li>
-        <li><span class="bullet"></span><div>飲料：咖啡、茶、軟性飲料、酒</div></li>
-        <li><span class="bullet"></span><div>清潔：垃圾袋、衛生紙、濕紙巾、環保洗劑</div></li>
-        <li><span class="bullet"></span><div>安全：個人藥品、蟲咬藥、防蚊液、防曬、頭盔(活動)</div></li>
+        <li><span class="bullet"></span><div>照明:頭燈/營燈、備用電池或行動電源</div></li>
+        <li><span class="bullet"></span><div>睡眠:睡袋、睡墊、枕頭、保暖衣物</div></li>
+        <li><span class="bullet"></span><div>炊事:卡式爐/噴射爐、瓦斯罐、打火機、餐具</div></li>
+        <li><span class="bullet"></span><div>飲料:咖啡、茶、軟性飲料、酒</div></li>
+        <li><span class="bullet"></span><div>清潔:垃圾袋、衛生紙、濕紙巾、環保洗劑</div></li>
+        <li><span class="bullet"></span><div>安全:個人藥品、蟲咬藥、防蚊液、防曬、頭盔(活動)</div></li>
       </ul>
-      <div class="note">提醒：山區日夜溫差大,晚間易起風,請備保暖層與防風外套</div>
+      <div class="note">提醒:山區日夜溫差大,晚間易起風,請備保暖層與防風外套</div>
 
       <!-- 露營介紹 -->
       <div class="tips-video" style="margin-top:1rem;">
@@ -469,7 +472,7 @@ footer a:hover { color:#fff; }
 <section class="location-section" id="location">
   <h2 class="section-title">活動資訊</h2>
   <div class="location-wrap">
-    <!-- 左側：地圖 -->
+    <!-- 左側:地圖 -->
     <div class="map-container">
       <iframe 
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3660.003301577906!2d120.7074623762734!3d23.460345399848144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346ee80869ba1507%3A0x982a57e04d83b7e7!2z56a_55Sw6L6y6I6K!5e0!3m2!1szh-TW!2stw!4v1763041553947!5m2!1szh-TW!2stw"
@@ -482,13 +485,13 @@ footer a:hover { color:#fff; }
       </iframe>
     </div>
 
-    <!-- 右側：營地資訊（活動日期放在最上方並醒目標示 + 倒數計時） -->
+    <!-- 右側:營地資訊 -->
     <div class="map-info">
       <div class="info-item highlight">
         <span class="info-icon">📅</span>
         <div class="info-content">
           <strong>活動日期</strong>
-          <p>2026/02/27（五）－ 03/01（日）</p>
+          <p>2026/02/27(五)- 03/01(日)</p>
           <span class="countdown-badge" id="countdown">⏰ 計算中...</span>
         </div>
       </div>
@@ -503,14 +506,14 @@ footer a:hover { color:#fff; }
         <span class="info-icon">🚗</span>
         <div class="info-content">
           <strong>交通方式</strong>
-          <p>嘉義火車站 → 禾田農莊（車程約65分鐘）</p>
+          <p>嘉義火車站 → 禾田農莊(車程約65分鐘)</p>
         </div>
       </div>
       <div class="info-item">
         <span class="info-icon">🚌</span>
         <div class="info-content">
           <strong>友軍支援</strong>
-          <p>嘉義火車站 → 禾田農莊（每人每趟補貼250元油錢）</p>
+          <p>嘉義火車站 → 禾田農莊(每人每趟補貼250元油錢)</p>
         </div>
       </div>
     </div>
@@ -569,7 +572,7 @@ footer a:hover { color:#fff; }
 <div class="lightbox-counter" id="lightboxCounter"></div>
 </div>
 
-<!-- 參加者推薦（輪播） -->
+<!-- 參加者推薦(輪播) -->
 <section class="recommend-section" id="recommend">
 <div class="container">
   <h2 class="section-title">參加者推薦</h2>
@@ -684,7 +687,7 @@ footer a:hover { color:#fff; }
                 </div>
               </div>
               <div class="rating">⭐⭐⭐⭐⭐</div>
-              <p class="content">認識自然，擁抱自然，觸摸自然，呼吸自然的好活動</p>
+              <p class="content">認識自然,擁抱自然,觸摸自然,呼吸自然的好活動</p>
             </div>
             <div class="card">
               <div class="card-header">
@@ -696,7 +699,7 @@ footer a:hover { color:#fff; }
                 </div>
               </div>
               <div class="rating">⭐⭐⭐⭐⭐</div>
-              <p class="content">自從我阿嬤參加過後，整個人都活了過來<br>會唱會跳樣樣來</p>
+              <p class="content">自從我阿嬤參加過後,整個人都活了過來<br>會唱會跳樣樣來</p>
             </div>
           </div>
         </div>
@@ -718,14 +721,14 @@ footer a:hover { color:#fff; }
 
 <footer id="contact">
 <h2 style="margin-bottom: 1.5rem;">連絡方式</h2>
-<p style="margin: 1rem 0;">Discord：<a href="http://discordapp.com/users/371983514712670208" target="_blank">RandomBean_</a></p>
-<p>VRC：<a href="https://vrchat.com/home/user/usr_30d4d366-9b4f-4c87-8140-29b724cd46b8" target="_blank">RandomBean</a></p>
+<p style="margin: 1rem 0;">Discord:<a href="http://discordapp.com/users/371983514712670208" target="_blank">RandomBean_</a></p>
+<p>VRC:<a href="https://vrchat.com/home/user/usr_30d4d366-9b4f-4c87-8140-29b724cd46b8" target="_blank">RandomBean</a></p>
 <p style="margin-top: 2rem; opacity: .8;">&copy; 2026 搖曳露營 | 讓我們共同創造美好回憶</p>
-<p style="opacity: .6;">活動日期：2026/02/27-03/01</p>
+<p style="opacity: .6;">活動日期:2026/02/27-03/01</p>
 </footer>
 
 <script>
-// 倒數計時功能
+// ========== 倒數計時功能 ==========
 function updateCountdown() {
   const eventDate = new Date('2026-02-27T00:00:00+08:00');
   const now = new Date();
@@ -734,7 +737,7 @@ function updateCountdown() {
   const countdownEl = document.getElementById('countdown');
   
   if (diff <= 0) {
-    countdownEl.textContent = '🎉 活動進行中！';
+    countdownEl.textContent = '🎉 活動進行中!';
     countdownEl.style.background = 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)';
     return;
   }
@@ -742,199 +745,435 @@ function updateCountdown() {
   const days = Math.floor(diff / (1000 * 60 * 60 * 24));
   const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
   
-    if (days > 0) {
-      countdownEl.textContent = `⏰ 還有 ${days} 天`;
-    } else if (hours > 0) {
-      countdownEl.textContent = `⏰ 還有 ${hours} 小時`;
-    } else {
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      countdownEl.textContent = `⏰ 還有 ${minutes} 分鐘`;
-    }
+  if (days > 0) {
+    countdownEl.textContent = `⏰ 還有 ${days} 天`;
+  } else if (hours > 0) {
+    countdownEl.textContent = `⏰ 還有 ${hours} 小時`;
+  } else {
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    countdownEl.textContent = `⏰ 還有 ${minutes} 分鐘`;
   }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// ========== Hero 照片跑馬燈 ==========
+const heroTrack = document.getElementById('heroSliderTrack');
+const heroDots = Array.from(document.querySelectorAll('.hero-dot'));
+const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+let heroIndex = 0;
+let heroTimer;
+
+function heroGoTo(i) {
+  heroIndex = (i + heroSlides.length) % heroSlides.length;
+  heroTrack.style.transform = `translateX(-${heroIndex * 100}%)`;
+  heroDots.forEach((d, di) => d.classList.toggle('active', di === heroIndex));
+}
+
+function heroAutoPlay() {
+  heroTimer = setInterval(() => {
+    heroGoTo(heroIndex + 1);
+  }, 4000);
+}
+
+heroDots.forEach(d => d.addEventListener('click', e => {
+  clearInterval(heroTimer);
+  heroGoTo(parseInt(e.target.dataset.index));
+  heroAutoPlay();
+}));
+
+heroAutoPlay();
+
+// ========== 回到頂部按鈕 ==========
+window.addEventListener('scroll', () => {
+  const btn = document.querySelector('.back-to-top');
+  if (document.documentElement.scrollTop > 300) btn.classList.add('show');
+  else btn.classList.remove('show');
+});
+
+function scrollToTop() { 
+  window.scrollTo({ top: 0, behavior: 'smooth' }); 
+}
+
+// ========== 手風琴 ==========
+document.querySelectorAll('.acc-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const panel = btn.nextElementSibling;
+    const icon = btn.querySelector('.acc-icon');
+    const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+    
+    // 關閉所有面板
+    document.querySelectorAll('.acc-panel').forEach(p => { 
+      p.style.maxHeight = null; 
+      p.classList.remove('open'); 
+    });
+    document.querySelectorAll('.acc-icon').forEach(i => i.textContent = '+');
+    
+    // 開啟當前面板
+    if (!open) {
+      panel.style.maxHeight = panel.scrollHeight + 'px';
+      panel.classList.add('open');
+      icon.textContent = '−';
+    }
+  });
+});
+
+// 預設展開第一個問題
+const firstPanel = document.querySelector('.acc-panel');
+const firstIcon = document.querySelector('.acc-btn .acc-icon');
+if (firstPanel) { 
+  firstPanel.style.maxHeight = firstPanel.scrollHeight + 'px'; 
+  firstPanel.classList.add('open'); 
+  if (firstIcon) firstIcon.textContent = '−'; 
+}
+
+// ========== Q&A 圖片輪播 (含自動播放) ==========
+const qaGallery = document.getElementById('qaGallery');
+const qaTrack = document.getElementById('qaGalleryTrack');
+const qaDots = Array.from(document.querySelectorAll('.qa-dot'));
+const qaPrev = document.querySelector('.qa-gallery .qa-arrow.prev');
+const qaNext = document.querySelector('.qa-gallery .qa-arrow.next');
+const qaSlides = Array.from(document.querySelectorAll('.qa-gallery-slide'));
+let qaIndex = 0;
+let qaTimer;
+let qaIsPaused = false;
+
+function qaGoTo(i) {
+  qaIndex = (i + qaSlides.length) % qaSlides.length;
+  qaTrack.style.transform = `translateX(-${qaIndex * 100}%)`;
+  qaDots.forEach((d, di) => d.classList.toggle('active', di === qaIndex));
+}
+
+// 自動播放功能
+function qaAutoPlay() {
+  qaTimer = setInterval(() => {
+    if (!qaIsPaused) {
+      qaGoTo(qaIndex + 1);
+    }
+  }, 4000); // 每 4 秒切換一張
+}
+
+// 重置自動播放
+function qaResetAutoPlay() {
+  clearInterval(qaTimer);
+  qaAutoPlay();
+}
+
+// 圓點點擊
+qaDots.forEach(d => d.addEventListener('click', e => {
+  qaGoTo(parseInt(e.target.dataset.index));
+  qaResetAutoPlay();
+}));
+
+// 箭頭點擊
+qaPrev.addEventListener('click', () => {
+  qaGoTo(qaIndex - 1);
+  qaResetAutoPlay();
+});
+
+qaNext.addEventListener('click', () => {
+  qaGoTo(qaIndex + 1);
+  qaResetAutoPlay();
+});
+
+// 滑鼠懸停暫停,移開繼續
+qaGallery.addEventListener('mouseenter', () => {
+  qaIsPaused = true;
+});
+
+qaGallery.addEventListener('mouseleave', () => {
+  qaIsPaused = false;
+});
+
+// 觸控/滑鼠拖曳切換
+let qaStartX = 0;
+let qaCurrentX = 0;
+let qaIsDown = false;
+let qaIsDragging = false;
+
+qaGallery.addEventListener('pointerdown', e => {
+  qaIsDown = true;
+  qaIsDragging = false;
+  qaStartX = e.clientX;
+  qaCurrentX = e.clientX;
+  qaGallery.style.cursor = 'grabbing';
+});
+
+qaGallery.addEventListener('pointermove', e => {
+  if (!qaIsDown) return;
+  qaCurrentX = e.clientX;
+  const diff = Math.abs(qaCurrentX - qaStartX);
+  if (diff > 5) qaIsDragging = true;
+});
+
+qaGallery.addEventListener('pointerup', e => {
+  if (!qaIsDown) return;
+  qaIsDown = false;
+  qaGallery.style.cursor = 'grab';
   
-  updateCountdown();
-  setInterval(updateCountdown, 60000);
-
-  // Hero 照片跑馬燈
-  const heroTrack = document.getElementById('heroSliderTrack');
-  const heroDots = Array.from(document.querySelectorAll('.hero-dot'));
-  const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
-  let heroIndex = 0;
-  let heroTimer;
-
-  function heroGoTo(i) {
-    heroIndex = (i + heroSlides.length) % heroSlides.length;
-    heroTrack.style.transform = `translateX(-${heroIndex * 100}%)`;
-    heroDots.forEach((d, di) => d.classList.toggle('active', di === heroIndex));
+  if (qaIsDragging) {
+    const dx = e.clientX - qaStartX;
+    if (dx > 50) {
+      qaGoTo(qaIndex - 1);
+      qaResetAutoPlay();
+    } else if (dx < -50) {
+      qaGoTo(qaIndex + 1);
+      qaResetAutoPlay();
+    }
   }
+  qaIsDragging = false;
+});
 
-  function heroAutoPlay() {
-    heroTimer = setInterval(() => {
-      heroGoTo(heroIndex + 1);
-    }, 4000);
-  }
+qaGallery.addEventListener('pointerleave', () => { 
+  qaIsDown = false; 
+  qaIsDragging = false;
+  qaGallery.style.cursor = 'grab'; 
+});
 
-  heroDots.forEach(d => d.addEventListener('click', e => {
-    clearInterval(heroTimer);      heroGoTo(parseInt(e.target.dataset.index));
-      heroAutoPlay();
-    }));
+// 防止拖曳時選取文字
+qaGallery.addEventListener('dragstart', e => e.preventDefault());
 
-    heroAutoPlay();
+// 啟動自動播放
+qaAutoPlay();
 
-    // 回到頂部按鈕
-    window.addEventListener('scroll', () => {
-      const btn = document.querySelector('.back-to-top');
-      if (document.documentElement.scrollTop > 300) btn.classList.add('show');
-      else btn.classList.remove('show');
-    });
-    function scrollToTop(){ window.scrollTo({ top:0, behavior:'smooth' }); }
+// ========== Lightbox 功能 ==========
+const lightbox = document.getElementById('lightbox');
+const lightboxImg = document.getElementById('lightboxImg');
+const lightboxCounter = document.getElementById('lightboxCounter');
+const photoItems = Array.from(document.querySelectorAll('.photo-item'));
+let currentLightboxIndex = 0;
 
-    // 手風琴
-    document.querySelectorAll('.acc-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        const panel = btn.nextElementSibling;
-        const icon = btn.querySelector('.acc-icon');
-        const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
-        document.querySelectorAll('.acc-panel').forEach(p => { p.style.maxHeight = null; p.classList.remove('open'); });
-        document.querySelectorAll('.acc-icon').forEach(i => i.textContent = '+');
-        if (!open) {
-          panel.style.maxHeight = panel.scrollHeight + 'px';
-          panel.classList.add('open');
-          icon.textContent = '−';
-        } else {
-          panel.style.maxHeight = null;
-          panel.classList.remove('open');
-          icon.textContent = '+';
-        }
-      });
-    });
+const lightboxImages = [
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(0).jpg?raw=true', caption: '營火晚會' },
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(1).png?raw=true', caption: '星空帳篷' },
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(2).jpg?raw=true', caption: '山林美景' },
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(3).jpg?raw=true', caption: '團體合照' },
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(4).jpg?raw=true', caption: '露營裝備' },
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(5).jpg?raw=true', caption: '日出時刻' },
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(6).jpg?raw=true', caption: '烤肉時光' },
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(7).jpg?raw=true', caption: '咖啡時光' },
+  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(8).jpg?raw=true', caption: '音樂派對' }
+];
 
-    // Q&A 圖片輪播
-    const qaTrack = document.getElementById('qaGalleryTrack');
-    const qaDots = Array.from(document.querySelectorAll('.qa-dot'));
-    const qaPrev = document.querySelector('.qa-gallery .qa-arrow.prev');
-    const qaNext = document.querySelector('.qa-gallery .qa-arrow.next');
-    const qaSlides = Array.from(document.querySelectorAll('.qa-gallery-slide'));
-    let qaIndex = 0;
+photoItems.forEach(item => {
+  item.addEventListener('click', () => {
+    currentLightboxIndex = parseInt(item.dataset.index);
+    openLightbox();
+  });
+});
 
-    function qaGoTo(i) {
-      qaIndex = (i + qaSlides.length) % qaSlides.length;
-      qaTrack.style.transform = `translateX(-${qaIndex * 100}%)`;
-      qaDots.forEach((d, di) => d.classList.toggle('active', di === qaIndex));
+function openLightbox() {
+  lightbox.classList.add('active');
+  updateLightboxImage();
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox() {
+  lightbox.classList.remove('active');
+  document.body.style.overflow = '';
+}
+
+function changeLightbox(direction) {
+  currentLightboxIndex = (currentLightboxIndex + direction + lightboxImages.length) % lightboxImages.length;
+  updateLightboxImage();
+}
+
+function updateLightboxImage() {
+  const current = lightboxImages[currentLightboxIndex];
+  lightboxImg.src = current.src;
+  lightboxImg.alt = current.caption;
+  lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+}
+
+// 鍵盤控制
+document.addEventListener('keydown', e => {
+  if (!lightbox.classList.contains('active')) return;
+  if (e.key === 'Escape') closeLightbox();
+  if (e.key === 'ArrowLeft') changeLightbox(-1);
+  if (e.key === 'ArrowRight') changeLightbox(1);
+});
+
+// 點擊背景關閉
+lightbox.addEventListener('click', e => {
+  if (e.target === lightbox) closeLightbox();
+});
+
+// ========== 參加者推薦輪播 ==========
+const carouselWrapper = document.querySelector('.carousel-wrapper');
+const track = document.getElementById('carouselTrack');
+const dots = Array.from(document.querySelectorAll('.controls .dot'));
+const prev = document.querySelector('.carousel-wrapper .arrow.prev');
+const next = document.querySelector('.carousel-wrapper .arrow.next');
+const slides = Array.from(document.querySelectorAll('.carousel .slide'));
+let index = 0;
+let timer;
+let isPaused = false;
+
+function goTo(i) {
+  index = (i + slides.length) % slides.length;
+  track.style.transform = `translateX(-${index * 100}%)`;
+  dots.forEach((d, di) => d.classList.toggle('active', di === index));
+}
+
+// 自動播放
+function autoPlay() { 
+  timer = setInterval(() => { 
+    if (!isPaused) {
+      goTo(index + 1); 
     }
+  }, 5000); 
+}
 
-    qaDots.forEach(d => d.addEventListener('click', e => qaGoTo(parseInt(e.target.dataset.index))));
-    qaPrev.addEventListener('click', () => qaGoTo(qaIndex - 1));
-    qaNext.addEventListener('click', () => qaGoTo(qaIndex + 1));
+// 重置自動播放
+function resetAuto() { 
+  clearInterval(timer); 
+  autoPlay(); 
+}
 
-    let qaStartX = 0, qaIsDown = false;
-    qaTrack.addEventListener('pointerdown', e => { qaIsDown = true; qaStartX = e.clientX; });
-    qaTrack.addEventListener('pointerup', e => {
-      if (!qaIsDown) return; qaIsDown = false;
-      const dx = e.clientX - qaStartX;
-      if (dx > 50) qaGoTo(qaIndex - 1);
-      else if (dx < -50) qaGoTo(qaIndex + 1);
-    });
-    qaTrack.addEventListener('pointerleave', () => { qaIsDown = false; });
+// 圓點點擊
+dots.forEach(d => d.addEventListener('click', e => {
+  goTo(parseInt(e.target.dataset.index));
+  resetAuto();
+}));
 
-    // Lightbox 功能
-    const lightbox = document.getElementById('lightbox');
-    const lightboxImg = document.getElementById('lightboxImg');
-    const lightboxCounter = document.getElementById('lightboxCounter');
-    const photoItems = Array.from(document.querySelectorAll('.photo-item'));
-    let currentLightboxIndex = 0;
+// 箭頭點擊
+prev.addEventListener('click', () => {
+  goTo(index - 1);
+  resetAuto();
+});
 
-    const lightboxImages = [
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(0).jpg?raw=true', caption: '' },
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(1).png?raw=true', caption: '' },
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(2).jpg?raw=true', caption: '' },
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(3).jpg?raw=true', caption: '' },
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(4).jpg?raw=true', caption: '' },
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(5).jpg?raw=true', caption: '' },
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(6).jpg?raw=true', caption: '' },
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(7).jpg?raw=true', caption: '' },
-      { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(8).jpg?raw=true', caption: '' }
-    ];
+next.addEventListener('click', () => {
+  goTo(index + 1);
+  resetAuto();
+});
 
-    photoItems.forEach(item => {
-      item.addEventListener('click', () => {
-        currentLightboxIndex = parseInt(item.dataset.index);
-        openLightbox();
-      });
-    });
+// 滑鼠懸停暫停
+carouselWrapper.addEventListener('mouseenter', () => {
+  isPaused = true;
+});
 
-    function openLightbox() {
-      lightbox.classList.add('active');
-      updateLightboxImage();
-      document.body.style.overflow = 'hidden';
-    }
+carouselWrapper.addEventListener('mouseleave', () => {
+  isPaused = false;
+});
 
-    function closeLightbox() {
-      lightbox.classList.remove('active');
-      document.body.style.overflow = '';
-    }
+// 觸控/滑鼠拖曳切換
+let startX = 0;
+let currentX = 0;
+let isDown = false;
+let isDragging = false;
 
-    function changeLightbox(direction) {
-      currentLightboxIndex = (currentLightboxIndex + direction + lightboxImages.length) % lightboxImages.length;
-      updateLightboxImage();
-    }
+track.addEventListener('pointerdown', e => { 
+  isDown = true; 
+  isDragging = false;
+  startX = e.clientX; 
+  currentX = e.clientX;
+  track.style.cursor = 'grabbing'; 
+});
 
-    function updateLightboxImage() {
-      const current = lightboxImages[currentLightboxIndex];
-      lightboxImg.src = current.src;
-      lightboxImg.alt = current.caption;
-      lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
-    }
+track.addEventListener('pointermove', e => {
+  if (!isDown) return;
+  currentX = e.clientX;
+  const diff = Math.abs(currentX - startX);
+  if (diff > 5) isDragging = true;
+});
 
-    // ESC 鍵關閉 Lightbox
-    document.addEventListener('keydown', e => {
-      if (e.key === 'Escape') closeLightbox();
-      if (e.key === 'ArrowLeft') changeLightbox(-1);
-      if (e.key === 'ArrowRight') changeLightbox(1);
-    });
-
-    // 點擊背景關閉 Lightbox
-    lightbox.addEventListener('click', e => {
-      if (e.target === lightbox) closeLightbox();
-    });
-
-    // 參加者推薦輪播
-    const track = document.getElementById('carouselTrack');
-    const dots = Array.from(document.querySelectorAll('.dot'));
-    const prev = document.querySelector('.carousel-wrapper .arrow.prev');
-    const next = document.querySelector('.carousel-wrapper .arrow.next');
-    const slides = Array.from(document.querySelectorAll('.slide'));
-    let index = 0;
-    let timer;
-
-    function goTo(i) {
-      index = (i + slides.length) % slides.length;
-      track.style.transform = `translateX(-${index * 100}%)`;
-      dots.forEach((d, di) => d.classList.toggle('active', di === index));
+track.addEventListener('pointerup', e => {
+  if (!isDown) return; 
+  isDown = false; 
+  track.style.cursor = 'grab';
+  
+  if (isDragging) {
+    const dx = e.clientX - startX;
+    if (dx > 60) {
+      goTo(index - 1);
+      resetAuto();
+    } else if (dx < -60) {
+      goTo(index + 1);
       resetAuto();
     }
+  }
+  isDragging = false;
+});
 
-    function autoPlay() { timer = setInterval(() => { goTo(index + 1); }, 5000); }
-    function resetAuto() { clearInterval(timer); autoPlay(); }
+track.addEventListener('pointerleave', () => { 
+  isDown = false; 
+  isDragging = false;
+  track.style.cursor = 'grab'; 
+});
 
-    dots.forEach(d => d.addEventListener('click', e => goTo(parseInt(e.target.dataset.index))));
-    prev.addEventListener('click', () => goTo(index - 1));
-    next.addEventListener('click', () => goTo(index + 1));
+// 防止拖曳時選取文字
+track.addEventListener('dragstart', e => e.preventDefault());
 
-    let startX = 0, isDown = false;
-    track.addEventListener('pointerdown', e => { isDown = true; startX = e.clientX; track.style.cursor='grabbing'; });
-    track.addEventListener('pointerup', e => {
-      if (!isDown) return; isDown = false; track.style.cursor='grab';
-      const dx = e.clientX - startX;
-      if (dx > 60) goTo(index - 1);
-      else if (dx < -60) goTo(index + 1);
+// 啟動自動播放
+autoPlay();
+
+// ========== 平滑滾動優化 ==========
+document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
+  anchor.addEventListener('click', function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute('href'));
+    if (target) {
+      const navHeight = document.querySelector('nav').offsetHeight;
+      const targetPosition = target.offsetTop - navHeight;
+      window.scrollTo({
+        top: targetPosition,
+        behavior: 'smooth'
+      });
+    }
+  });
+});
+
+// ========== 圖片懶加載優化 ==========
+if ('IntersectionObserver' in window) {
+  const imageObserver = new IntersectionObserver((entries, observer) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const img = entry.target;
+        if (img.dataset.src) {
+          img.src = img.dataset.src;
+          img.removeAttribute('data-src');
+        }
+        observer.unobserve(img);
+      }
     });
-    track.addEventListener('pointerleave', () => { isDown = false; track.style.cursor='grab'; });
+  });
 
-    const firstPanel = document.querySelector('.acc-panel');
-    const firstIcon = document.querySelector('.acc-btn .acc-icon');
-    if (firstPanel) { firstPanel.style.maxHeight = firstPanel.scrollHeight + 'px'; firstPanel.classList.add('open'); if (firstIcon) firstIcon.textContent = '−'; }
-    autoPlay();
-  </script>
+  document.querySelectorAll('img[data-src]').forEach(img => {
+    imageObserver.observe(img);
+  });
+}
+
+// ========== 效能優化:節流函數 ==========
+function throttle(func, delay) {
+  let lastCall = 0;
+  return function(...args) {
+    const now = new Date().getTime();
+    if (now - lastCall < delay) return;
+    lastCall = now;
+    return func(...args);
+  };
+}
+
+// 應用節流到滾動事件
+window.addEventListener('scroll', throttle(() => {
+  const btn = document.querySelector('.back-to-top');
+  if (document.documentElement.scrollTop > 300) btn.classList.add('show');
+  else btn.classList.remove('show');
+}, 100));
+
+// ========== 頁面載入完成提示 ==========
+window.addEventListener('load', () => {
+  console.log('🏕️ 搖曳露營網站已完全載入!');
+  console.log('📅 活動日期: 2026/02/27-03/01');
+  console.log('✨ 功能特色:');
+  console.log('  - Hero 自動輪播 (4秒)');
+  console.log('  - Q&A 圖片自動輪播 (4秒,懸停暫停)');
+  console.log('  - 參加者推薦輪播 (5秒,懸停暫停)');
+  console.log('  - 倒數計時功能');
+  console.log('  - Lightbox 照片檢視');
+  console.log('  - 響應式設計');
+});
+</script>
 </body>
 </html>
