@@ -103,14 +103,15 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 .location-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; align-items: start; }
 
 .map-container { width: 100%; height: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,.1); }
-.map-info { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,.06); height: 500px; display: flex; flex-direction: column; justify-content: center; }
+.map-info { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,.06); height: auto; display: flex; flex-direction: column; justify-content: flex-start; }
 .info-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px dashed #e9f4e2; }
 .info-item:last-child { border-bottom: none; }
 .info-item.highlight { background: linear-gradient(135deg, #e9f4e2 0%, #f0f9eb 100%); padding: 1.2rem; margin: -0.2rem -0.5rem 0.8rem; border-radius: 10px; border: 2px solid #97bc62; box-shadow: 0 3px 10px rgba(151,188,98,.15); }
 .info-icon { font-size: 1.8rem; flex-shrink: 0; }
 .info-content { flex: 1; }
 .info-content strong { display: block; color: #2c5f2d; font-size: 1.1rem; margin-bottom: .3rem; }
-.info-content p { color: #555; font-size: 1rem; line-height: 1.6; }
+.info-content p { color: #555; font-size: 1rem; line-height: 1.6; margin-bottom: 0; }
+.info-content p + p { margin-top: 0.3rem; }
 
 /* 倒數計時徽章 */
 .countdown-badge {
@@ -486,44 +487,47 @@ footer a:hover { color:#fff; }
     </div>
 
     <!-- 右側:營地資訊 -->
-<div class="map-info">
-  <div class="info-item highlight">
-    <span class="info-icon">📅</span>
-    <div class="info-content">
-      <strong>活動日期</strong>
-      <p>2026/02/27(五)- 03/01(日)</p>
-      <p style="color: #ff6b6b; font-weight: 700; margin-top: 0.3rem;">報名截止:2026/01/31</p>
-      <span class="countdown-badge" id="countdown">⏰ 計算中...</span>
+    <div class="map-info">
+      <div class="info-item highlight">
+        <span class="info-icon">📅</span>
+        <div class="info-content">
+          <strong>活動日期</strong>
+          <p>2026/02/27(五)- 03/01(日)</p>
+          <p style="color: #ff6b6b; font-weight: 700;">報名截止:2026/01/31</p>
+          <span class="countdown-badge" id="countdown">⏰ 計算中...</span>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">💰</span>
+        <div class="info-content">
+          <strong>場地費用</strong>
+          <p>每人約 1,300 元</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">📌</span>
+        <div class="info-content">
+          <strong>營地地址</strong>
+          <p>嘉義阿里山 禾田農莊</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">🚗</span>
+        <div class="info-content">
+          <strong>交通方式</strong>
+          <p>嘉義火車站 → 禾田農莊(車程約65分鐘)</p>
+        </div>
+      </div>
+      <div class="info-item">
+        <span class="info-icon">🚌</span>
+        <div class="info-content">
+          <strong>友軍支援</strong>
+          <p>嘉義火車站 → 禾田農莊(每人每趟補貼250元油錢)</p>
+        </div>
+      </div>
     </div>
   </div>
-  <div class="info-item">
-    <span class="info-icon">💰</span>
-    <div class="info-content">
-      <strong>場地費用</strong>
-      <p>每人約 1,300 元</p>
-    </div>
-  </div>
-  <div class="info-item">
-    <span class="info-icon">📌</span>
-    <div class="info-content">
-      <strong>營地地址</strong>
-      <p>嘉義阿里山 禾田農莊</p>
-    </div>
-  </div>
-  <div class="info-item">
-    <span class="info-icon">🚗</span>
-    <div class="info-content">
-      <strong>交通方式</strong>
-      <p>嘉義火車站 → 禾田農莊(車程約65分鐘)</p>
-    </div>
-  </div>
-  <div class="info-item">
-    <span class="info-icon">🚌</span>
-    <div class="info-content">
-      <strong>友軍支援</strong>
-      <p>嘉義火車站 → 禾田農莊(每人每趟補貼250元油錢)</p>
-    </div>
-  </div>
+</section>
 </div>
 
 <!-- 第一屆精彩回顧 -->
@@ -732,6 +736,81 @@ footer a:hover { color:#fff; }
 <p style="opacity: .6;">活動日期:2026/02/27-03/01</p>
 </footer>
 
+<script>
+// ========== 倒數計時功能 ==========
+function updateCountdown() {
+  const eventDate = new Date('2026-02-27T00:00:00+08:00');
+  const now = new Date();
+  const diff = eventDate - now;
+  
+  const countdownEl = document.getElementById('countdown');
+  
+  if (diff <= 0) {
+    countdownEl.textContent = '🎉 活動進行中!';
+    countdownEl.style.background = 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)';
+    return;
+  }
+  
+  const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+  const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  
+  if (days > 0) {
+    countdownEl.textContent = `⏰ 還有 ${days} 天`;
+  } else if (hours > 0) {
+    countdownEl.textContent = `⏰ 還有 ${hours} 小時`;
+  } else {
+    const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+    countdownEl.textContent = `⏰ 還有 ${minutes} 分鐘`;
+  }
+}
+
+updateCountdown();
+setInterval(updateCountdown, 60000);
+
+// ========== Hero 照片跑馬燈 ==========
+const heroTrack = document.getElementById('heroSliderTrack');
+const heroDots = Array.from(document.querySelectorAll('.hero-dot'));
+const heroSlides = Array.from(document.querySelectorAll('.hero-slide'));
+let heroIndex = 0;
+let heroTimer;
+
+function heroGoTo(i) {
+  heroIndex = (i + heroSlides.length) % heroSlides.length;
+  heroTrack.style.transform = `translateX(-${heroIndex * 100}%)`;
+  heroDots.forEach((d, di) => d.classList.toggle('active', di === heroIndex));
+}
+
+function heroAutoPlay() {
+  heroTimer = setInterval(() => {
+    heroGoTo(heroIndex + 1);
+  }, 4000);
+}
+
+heroDots.forEach(d => d.addEventListener('click', e => {
+  clearInterval(heroTimer);
+  heroGoTo(parseInt(e.target.dataset.index));
+  heroAutoPlay();
+}));
+
+heroAutoPlay();
+
+// ========== 回到頂部按鈕 ==========
+window.addEventListener('scroll', () => {
+  const btn = document.querySelector('.back-to-top');
+  if (document.documentElement.scrollTop > 300) btn.classList.add('show');
+  else btn.classList.remove('show');
+});
+
+function scrollToTop() { 
+  window.scrollTo({ top: 0, behavior: 'smooth' }); 
+}
+
+// ========== 手風琴 ==========
+document.querySelectorAll('.acc-btn').forEach((btn) => {
+  btn.addEventListener('click', () => {
+    const panel = btn.nextElementSibling;
+    const icon = btn.querySelector('.acc-icon');
+    const open = panel.style
 <script>
 // ========== 倒數計時功能 ==========
 function updateCountdown() {
@@ -1182,8 +1261,3 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
-
-
-
-
-
