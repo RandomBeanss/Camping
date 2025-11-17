@@ -478,6 +478,72 @@ footer a:hover { color:#fff; }
   .carousel-wrapper { padding: 0 40px; }
   .arrow { width: 35px; height: 35px; font-size: 1.2rem; }
 }
+/* 放大：活動日期、參加場地費 兩個卡片 */
+.info-card.date-card,
+.info-card.fee-card {
+  padding: 22px 22px;              /* 增加內距 */
+  border-radius: 14px;
+}
+
+.info-card.date-card .info-icon,
+.info-card.fee-card .info-icon {
+  width: 56px;                     /* 放大左側圖示 */
+  height: 56px;
+  font-size: 1.9rem;
+}
+
+.info-card.date-card .info-label,
+.info-card.fee-card .info-label {
+  font-size: 1.05rem;              /* 標籤字體更大更醒目 */
+}
+
+.info-card.date-card .info-text,
+.info-card.fee-card .info-text {
+  font-size: 1.02rem;              /* 內文字體略大 */
+  line-height: 1.55;
+}
+
+/* 倒數徽章更顯眼 */
+.info-card.date-card .countdown-badge {
+  font-size: 0.98rem;
+  padding: 9px 18px;
+}
+
+/* 分隔線加寬、間距更舒適 */
+.info-card.date-card .info-divider,
+.info-card.fee-card .info-divider {
+  margin: 12px 0 6px;
+}
+
+/* 滑過時的浮動幅度略增，增強存在感 */
+.info-card.date-card:hover,
+.info-card.fee-card:hover {
+  transform: translateX(10px);
+  box-shadow: 0 10px 38px rgba(0,0,0,0.16);
+}
+
+/* 手機版也適度放大但不誇張 */
+@media (max-width: 768px) {
+  .info-card.date-card,
+  .info-card.fee-card {
+    padding: 18px 18px;
+  }
+  .info-card.date-card .info-icon,
+  .info-card.fee-card .info-icon {
+    width: 50px;
+    height: 50px;
+    font-size: 1.7rem;
+  }
+  .info-card.date-card .info-text,
+  .info-card.fee-card .info-text {
+    font-size: 1rem;
+  }
+  .info-card.date-card .countdown-badge {
+    font-size: 0.92rem;
+    padding: 8px 16px;
+  }
+}
+
 </style>
 </head>
 <body>
@@ -1358,3 +1424,4 @@ console.log('🏕️ 搖曳露營網站已完全載入!');
 </script>
 </body>
 </html>
+
