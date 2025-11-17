@@ -98,37 +98,188 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 /* 露營介紹影片 */
 .yt-frame { width:100%; aspect-ratio:16/9; border:0; border-radius:12px; background:#000; margin-top:.6rem; }
 
-/* 場地資訊 */
-.location-section { padding: 2rem 0 3rem; background: #f9fdf7; margin: 0 -2rem; padding-left: 2rem; padding-right: 2rem; }
-.location-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; align-items: start; }
+/* ==================== 活動資訊區塊 ==================== */
+.info-section {
+  background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+  padding: 80px 20px;
+  position: relative;
+}
 
-.map-container { width: 100%; height: 500px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,.1); }
-.map-info { background: #fff; border-radius: 12px; padding: 1.5rem; box-shadow: 0 4px 12px rgba(0,0,0,.06); height: 500px; display: flex; flex-direction: column; justify-content: center; }
-.info-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1rem 0; border-bottom: 1px dashed #e9f4e2; }
-.info-item:last-child { border-bottom: none; }
-.info-item.highlight { background: linear-gradient(135deg, #e9f4e2 0%, #f0f9eb 100%); padding: 1.2rem; margin: -0.2rem -0.5rem 0.8rem; border-radius: 10px; border: 2px solid #97bc62; box-shadow: 0 3px 10px rgba(151,188,98,.15); }
-.info-icon { font-size: 1.8rem; flex-shrink: 0; }
-.info-content { flex: 1; }
-.info-content strong { display: block; color: #2c5f2d; font-size: 1.1rem; margin-bottom: .3rem; }
-.info-content p { color: #555; font-size: 1rem; line-height: 1.6; }
+.info-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 50px;
+  align-items: start;
+}
+
+/* 左側地圖容器 */
+.map-wrapper {
+  background: white;
+  border-radius: 20px;
+  overflow: hidden;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.12);
+  height: 550px;
+  position: sticky;
+  top: 100px;
+}
+
+.map-wrapper iframe {
+  width: 100%;
+  height: 100%;
+  border: none;
+}
+
+/* 右側資訊卡片容器 */
+.info-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* 標題樣式 */
+.info-card-title {
+  font-size: 2.8rem;
+  font-weight: 800;
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  position: relative;
+  padding-bottom: 20px;
+}
+
+.info-card-title::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100px;
+  height: 5px;
+  background: linear-gradient(90deg, #ff6b6b, #feca57, #48dbfb);
+  border-radius: 3px;
+}
+
+/* 資訊卡片基礎樣式 */
+.info-card {
+  background: white;
+  border-radius: 16px;
+  padding: 24px 28px;
+  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  border-left: 5px solid #ddd;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  position: relative;
+  overflow: hidden;
+}
+
+.info-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 5px;
+  height: 100%;
+  transition: width 0.3s ease;
+}
+
+.info-card:hover {
+  transform: translateX(8px);
+  box-shadow: 0 8px 35px rgba(0,0,0,0.15);
+}
+
+.info-card:hover::before {
+  width: 100%;
+  opacity: 0.05;
+}
+
+/* 各卡片顏色 */
+.info-card.date-card { border-left-color: #ff6b6b; }
+.info-card.date-card::before { background: #ff6b6b; }
+
+.info-card.deadline-card { border-left-color: #feca57; }
+.info-card.deadline-card::before { background: #feca57; }
+
+.info-card.fee-card { border-left-color: #48dbfb; }
+.info-card.fee-card::before { background: #48dbfb; }
+
+.info-card.location-card { border-left-color: #1dd1a1; }
+.info-card.location-card::before { background: #1dd1a1; }
+
+.info-card.transport-card { border-left-color: #5f27cd; }
+.info-card.transport-card::before { background: #5f27cd; }
+
+.info-card.support-card { border-left-color: #ff9ff3; }
+.info-card.support-card::before { background: #ff9ff3; }
+
+/* 圖示樣式 */
+.info-icon {
+  width: 65px;
+  height: 65px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2.2rem;
+  border-radius: 14px;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  transition: transform 0.3s ease;
+}
+
+.info-card:hover .info-icon {
+  transform: scale(1.1) rotate(5deg);
+}
+
+/* 內容區域 */
+.info-content {
+  flex: 1;
+  position: relative;
+  z-index: 1;
+}
+
+.info-label {
+  font-size: 1.15rem;
+  font-weight: 700;
+  color: #2c5f2d;
+  margin-bottom: 8px;
+  display: block;
+  letter-spacing: 0.3px;
+}
+
+.info-text {
+  font-size: 1.05rem;
+  color: #555;
+  line-height: 1.6;
+  margin: 0;
+}
 
 /* 倒數計時徽章 */
 .countdown-badge {
   display: inline-block;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a52 100%);
-  color: #fff;
-  padding: .4rem .8rem;
-  border-radius: 20px;
-  font-size: .9rem;
+  background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+  color: white;
+  padding: 10px 24px;
+  border-radius: 50px;
+  font-size: 1.1rem;
   font-weight: 700;
-  margin-top: .5rem;
-  box-shadow: 0 2px 8px rgba(255,107,107,.3);
-  animation: pulse 2s ease-in-out infinite;
+  box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+  margin-top: 10px;
+  animation: countdownPulse 2s ease-in-out infinite;
 }
 
-@keyframes pulse {
-  0%, 100% { transform: scale(1); }
-  50% { transform: scale(1.05); }
+@keyframes countdownPulse {
+  0%, 100% { 
+    transform: scale(1);
+    box-shadow: 0 6px 20px rgba(255,107,107,0.4);
+  }
+  50% { 
+    transform: scale(1.05);
+    box-shadow: 0 8px 25px rgba(255,107,107,0.6);
+  }
 }
 
 /* 第一屆照片回顧 */
@@ -468,68 +619,82 @@ footer a:hover { color:#fff; }
   </div>
 </section>
 
-<!-- 場地資訊 -->
-<section class="location-section" id="location">
-  <h2 class="section-title">活動資訊</h2>
-  <div class="location-wrap">
-    <!-- 左側:地圖 -->
-    <div class="map-container">
+<!-- 活動資訊 -->
+<section class="info-section" id="location">
+  <div class="info-container">
+    
+    <!-- 左側：Google 地圖 -->
+    <div class="map-wrapper">
       <iframe 
         src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3660.003301577906!2d120.7074623762734!3d23.460345399848144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346ee80869ba1507%3A0x982a57e04d83b7e7!2z56a_55Sw6L6y6I6K!5e0!3m2!1szh-TW!2stw!4v1763041553947!5m2!1szh-TW!2stw"
         width="100%" 
         height="100%" 
-        style="border:0; border-radius:12px;" 
+        style="border:0;" 
         allowfullscreen="" 
         loading="lazy" 
         referrerpolicy="no-referrer-when-downgrade">
       </iframe>
     </div>
-
-    <!-- 右側:營地資訊 -->
-    <div class="map-info">
-      <div class="info-item highlight">
-        <span class="info-icon">📅</span>
+    
+    <!-- 右側：資訊卡片 -->
+    <div class="info-cards">
+      <h2 class="info-card-title">活動資訊</h2>
+      
+      <!-- 活動日期卡片 -->
+      <div class="info-card date-card">
+        <div class="info-icon">📅</div>
         <div class="info-content">
-          <strong>活動日期</strong>
-          <p>2026/02/27(五)- 03/01(日)</p>
+          <span class="info-label">活動日期</span>
+          <p class="info-text">2026/02/27(五) - 03/01(日)</p>
           <span class="countdown-badge" id="countdown">⏰ 計算中...</span>
         </div>
       </div>
-      <div class="info-item highlight">
-        <span class="info-icon">⏰</span>
+      
+      <!-- 報名截止卡片 -->
+      <div class="info-card deadline-card">
+        <div class="info-icon">⏰</div>
         <div class="info-content">
-          <strong>報名截止日期</strong>
-          <p>2026/01/31(六) 23:59</p>
+          <span class="info-label">報名截止日期</span>
+          <p class="info-text">2026/01/31(六) 23:59</p>
         </div>
       </div>
-      <div class="info-item highlight">
-        <span class="info-icon">💰</span>
+      
+      <!-- 參加費用卡片 -->
+      <div class="info-card fee-card">
+        <div class="info-icon">💰</div>
         <div class="info-content">
-          <strong>參加場地費</strong>
-          <p>每人 NT$ 1,300 元</p>
+          <span class="info-label">參加場地費</span>
+          <p class="info-text">每人 NT$ 1,300 元</p>
         </div>
       </div>
-      <div class="info-item">
-        <span class="info-icon">📌</span>
+      
+      <!-- 營地地址卡片 -->
+      <div class="info-card location-card">
+        <div class="info-icon">🏕️</div>
         <div class="info-content">
-          <strong>營地地址</strong>
-          <p>嘉義阿里山 禾田農莊</p>
+          <span class="info-label">營地地址</span>
+          <p class="info-text">嘉義阿里山 禾田農莊</p>
         </div>
       </div>
-      <div class="info-item">
-        <span class="info-icon">🚗</span>
+      
+      <!-- 交通方式卡片 -->
+      <div class="info-card transport-card">
+        <div class="info-icon">🚗</div>
         <div class="info-content">
-          <strong>交通方式</strong>
-          <p>嘉義火車站 → 禾田農莊(車程約65分鐘)</p>
+          <span class="info-label">交通方式</span>
+          <p class="info-text">嘉義火車站 → 禾田農莊 (車程約65分鐘)</p>
         </div>
       </div>
-      <div class="info-item">
-        <span class="info-icon">🚌</span>
+      
+      <!-- 友軍支援卡片 -->
+      <div class="info-card support-card">
+        <div class="info-icon">🚌</div>
         <div class="info-content">
-          <strong>友軍支援</strong>
-          <p>嘉義火車站 → 禾田農莊(每人每趟補貼250元油錢)</p>
+          <span class="info-label">友軍支援</span>
+          <p class="info-text">嘉義火車站 → 禾田農莊 (每人每趟補貼250元油錢)</p>
         </div>
       </div>
+      
     </div>
   </div>
 </section>
@@ -1169,5 +1334,6 @@ console.log('🏕️ 搖曳露營網站已完全載入!');
 </script>
 </body>
 </html>
+
 
 
