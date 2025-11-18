@@ -107,6 +107,7 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 .info-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px dashed #e9f4e2; }
 .info-item:last-child { border-bottom: none; }
 .info-item.highlight { background: linear-gradient(135deg, #e9f4e2 0%, #f0f9eb 100%); padding: 1.4rem 1.2rem; margin: 0 -0.5rem 0.5rem; border-radius: 10px; border: 2px solid #97bc62; box-shadow: 0 3px 10px rgba(151,188,98,.15); }
+.info-item.highlight-secondary {background: linear-gradient(135deg, #f0f9eb 0%, #fafdf7 100%);padding: 1.4rem 1.2rem;margin: 0 -0.5rem 0.5rem;border-radius: 10px;border: 1px solid #e9f4e2;box-shadow: 0 2px 8px rgba(151,188,98,.08);}
 .info-icon { font-size: 2rem; flex-shrink: 0; line-height: 1; }
 .info-content { flex: 1; }
 .info-content strong { display: block; color: #2c5f2d; font-size: 1.15rem; margin-bottom: .4rem; font-weight: 800; }
@@ -517,7 +518,7 @@ header h1 { font-size: 1.8rem; }
         <p>嘉義阿里山 禾田農莊</p>
       </div>
     </div>
-    <div class="info-item">
+<div class="info-item highlight-secondary">
       <span class="info-icon">🚗</span>
       <div class="info-content">
         <strong>交通方式</strong>
@@ -1191,3 +1192,4 @@ window.addEventListener('load', () => {
 </script>
 </body>
 </html>
+
