@@ -11,7 +11,60 @@
 <style>
 * { margin: 0; padding: 0; box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { font-family: 'Microsoft JhengHei', Arial, sans-serif; line-height: 1.6; color: #333; overflow-x: hidden; }
+
+/* ========== 統一背景系統 ========== */
+body { 
+font-family: 'Microsoft JhengHei', Arial, sans-serif; 
+line-height: 1.6; 
+color: #333; 
+overflow-x: hidden;
+
+/* 主背景 - 漸層 + 紋理 */
+background: linear-gradient(135deg, #f5f9f3 0%, #e8f4e1 25%, #f0f8eb 50%, #e8f4e1 75%, #f5f9f3 100%);
+background-attachment: fixed;
+background-size: 200% 200%;
+animation: gradientShift 15s ease infinite;
+
+/* 疊加紋理層 */
+position: relative;
+}
+
+body::before {
+content: '';
+position: fixed;
+top: 0;
+left: 0;
+width: 100%;
+height: 100%;
+background-image: 
+  repeating-linear-gradient(
+    45deg,
+    transparent,
+    transparent 10px,
+    rgba(151, 188, 98, 0.02) 10px,
+    rgba(151, 188, 98, 0.02) 20px
+  ),
+  repeating-linear-gradient(
+    -45deg,
+    transparent,
+    transparent 10px,
+    rgba(44, 95, 45, 0.02) 10px,
+    rgba(44, 95, 45, 0.02) 20px
+  );
+pointer-events: none;
+z-index: -1;
+}
+
+/* 背景漸層動畫 */
+@keyframes gradientShift {
+0%, 100% { background-position: 0% 50%; }
+50% { background-position: 100% 50%; }
+}
+
+/* 確保所有區塊背景透明或半透明 */
+.container {
+background: transparent;
+}
 
 header { background: linear-gradient(135deg, #2c5f2d 0%, #97bc62 100%); color: #fff; padding: 2rem 0; text-align: center; position: relative; overflow: hidden; }
 header::before { content: '🌲'; position: absolute; font-size: 15rem; opacity: .1; top: -50px; right: -50px; animation: float 6s ease-in-out infinite; }
@@ -19,7 +72,7 @@ header::before { content: '🌲'; position: absolute; font-size: 15rem; opacity:
 header h1 { font-size: 3.2rem; margin-bottom: .5rem; }
 header p { font-size: 1.2rem; }
 
-nav { background: #2c5f2d; padding: 1rem; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,.1); }
+nav { background: rgba(44, 95, 45, 0.95); backdrop-filter: blur(10px); padding: 1rem; text-align: center; position: sticky; top: 0; z-index: 100; box-shadow: 0 2px 10px rgba(0,0,0,.1); }
 nav a { color: #fff; text-decoration: none; padding: .7rem 1.2rem; margin: 0 .3rem; border-radius: 25px; transition: all .3s; display: inline-block; font-size: 1.05rem; font-weight: 700; }
 nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5px 15px rgba(0,0,0,.2); }
 
@@ -48,7 +101,7 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 
 /* 特色 - 改為3格橫排 */
 .features { display:grid; grid-template-columns: repeat(3,1fr); gap:2rem; margin:3rem 0; }
-.feature-card { background:#fff; border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,.1); text-align:center; transition: all .3s; position:relative; overflow:hidden; }
+.feature-card { background:rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius:15px; box-shadow:0 5px 15px rgba(0,0,0,.1); text-align:center; transition: all .3s; position:relative; overflow:hidden; }
 .feature-card::before { content:''; position:absolute; inset:0; left:-100%; background:linear-gradient(90deg,transparent,rgba(151,188,98,.2),transparent); transition:left .5s; }
 .feature-card:hover::before { left:100%; }
 .feature-card:hover { transform: translateY(-10px); box-shadow: 0 15px 30px rgba(0,0,0,.2); }
@@ -58,9 +111,9 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 .feature-card p { color:#4a4a4a; font-size:1.1rem; line-height:1.9; }
 
 /* 露營小知識 */
-.tips-section { padding: 2rem 0 3rem; }
+.tips-section { padding: 2rem 0 3rem; background: transparent; }
 .tips-wrap { display:grid; grid-template-columns: 1.2fr .8fr; gap: 1.8rem; }
-.tips-card, .tips-list, .tips-video { background:#fff; border-radius:16px; padding:1.4rem 1.6rem; box-shadow:0 8px 20px rgba(0,0,0,.06); border:1px solid rgba(44,95,45,.06); }
+.tips-card, .tips-list, .tips-video { background:rgba(255, 255, 255, 0.85); backdrop-filter: blur(10px); border-radius:16px; padding:1.4rem 1.6rem; box-shadow:0 8px 20px rgba(0,0,0,.06); border:1px solid rgba(44,95,45,.06); }
 .tips-title { display:flex; align-items:center; gap:.6rem; color:#2c5f2d; font-size:1.4rem; font-weight:800; margin-bottom:.6rem; }
 .tips-desc { color:#4a4a4a; margin-bottom: .8rem; }
 
@@ -99,15 +152,15 @@ nav a:hover { background: #97bc62; transform: translateY(-3px); box-shadow: 0 5p
 .yt-frame { width:100%; aspect-ratio:16/9; border:0; border-radius:12px; background:#000; margin-top:.6rem; }
 
 /* 場地資訊 - 優化版 */
-.location-section { padding: 2rem 0 3rem; background: #f9fdf7; margin: 0 -2rem; padding-left: 2rem; padding-right: 2rem; }
+.location-section { padding: 2rem 0 3rem; background: rgba(255, 255, 255, 0.5); backdrop-filter: blur(10px); margin: 0 -2rem; padding-left: 2rem; padding-right: 2rem; }
 .location-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 2rem; margin-top: 2rem; align-items: stretch; }
 
 .map-container { width: 100%; min-height: 550px; border-radius: 12px; overflow: hidden; box-shadow: 0 8px 20px rgba(0,0,0,.1); }
-.map-info { background: #fff; border-radius: 12px; padding: 2rem 1.8rem; box-shadow: 0 4px 12px rgba(0,0,0,.06); display: flex; flex-direction: column; justify-content: space-evenly; }
+.map-info { background: rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius: 12px; padding: 2rem 1.8rem; box-shadow: 0 4px 12px rgba(0,0,0,.06); display: flex; flex-direction: column; justify-content: space-evenly; }
 .info-item { display: flex; align-items: flex-start; gap: 1rem; padding: 1.2rem 0; border-bottom: 1px dashed #e9f4e2; }
 .info-item:last-child { border-bottom: none; }
-.info-item.highlight { background: linear-gradient(135deg, #e9f4e2 0%, #f0f9eb 100%); padding: 1.4rem 1.2rem; margin: 0 -0.5rem 0.5rem; border-radius: 10px; border: 2px solid #97bc62; box-shadow: 0 3px 10px rgba(151,188,98,.15); }
-.info-item.highlight-secondary {background: linear-gradient(135deg, #f0f9eb 0%, #fafdf7 100%);padding: 1.4rem 1.2rem;margin: 0 -0.5rem 0.5rem;border-radius: 10px;border: 1px solid #e9f4e2;box-shadow: 0 2px 8px rgba(151,188,98,.08);}
+.info-item.highlight { background: linear-gradient(135deg, rgba(233, 244, 226, 0.8) 0%, rgba(240, 249, 235, 0.8) 100%); padding: 1.4rem 1.2rem; margin: 0 -0.5rem 0.5rem; border-radius: 10px; border: 2px solid #97bc62; box-shadow: 0 3px 10px rgba(151,188,98,.15); }
+.info-item.highlight-secondary {background: linear-gradient(135deg, rgba(240, 249, 235, 0.8) 0%, rgba(250, 253, 247, 0.8) 100%);padding: 1.4rem 1.2rem;margin: 0 -0.5rem 0.5rem;border-radius: 10px;border: 1px solid #e9f4e2;box-shadow: 0 2px 8px rgba(151,188,98,.08);}
 .info-icon { font-size: 2rem; flex-shrink: 0; line-height: 1; }
 .info-content { flex: 1; }
 .info-content strong { display: block; color: #2c5f2d; font-size: 1.15rem; margin-bottom: .4rem; font-weight: 800; }
@@ -133,7 +186,7 @@ animation: pulse 2s ease-in-out infinite;
 }
 
 /* 第一屆照片回顧 */
-.gallery-section { padding: 4rem 0; background: linear-gradient(135deg, #f0f9eb 0%, #e9f4e2 100%); }
+.gallery-section { padding: 4rem 0; background: rgba(240, 249, 235, 0.6); backdrop-filter: blur(10px); }
 .photo-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; margin-top: 2rem; }
 .photo-item { position: relative; overflow: hidden; border-radius: 16px; box-shadow: 0 8px 20px rgba(0,0,0,.1); transition: all .4s cubic-bezier(.22,.61,.36,1); cursor: pointer; aspect-ratio: 4/3; }
 .photo-item img { width: 100%; height: 100%; object-fit: cover; transition: transform .4s; }
@@ -154,13 +207,13 @@ animation: pulse 2s ease-in-out infinite;
 .lightbox-counter { position: absolute; bottom: -50px; left: 50%; transform: translateX(-50%); color: #fff; font-size: 1.2rem; font-weight: 700; }
 
 /* 參加者推薦 - 輪播樣式 */
-.recommend-section { padding: 4rem 0; background: #f7fbf3; }
+.recommend-section { padding: 4rem 0; background: rgba(247, 251, 243, 0.7); backdrop-filter: blur(10px); }
 .carousel-wrapper { position: relative; max-width: 1400px; margin: 0 auto; padding: 0 80px; }
 .carousel { position: relative; overflow: hidden; border-radius: 16px; }
 .carousel-track { display: flex; transition: transform .6s cubic-bezier(.22,.61,.36,1); }
 .slide { min-width: 100%; padding: 2rem 1rem; }
 .cards { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
-.card { background:#fff; border-radius:16px; padding:1.4rem; box-shadow:0 8px 20px rgba(0,0,0,.08); transition: transform .3s, box-shadow .3s; border:1px solid rgba(44,95,45,.06); }
+.card { background:rgba(255, 255, 255, 0.9); backdrop-filter: blur(10px); border-radius:16px; padding:1.4rem; box-shadow:0 8px 20px rgba(0,0,0,.08); transition: transform .3s, box-shadow .3s; border:1px solid rgba(44,95,45,.06); }
 .card:hover { transform: translateY(-6px); box-shadow:0 16px 28px rgba(0,0,0,.12); }
 .card-header { display:flex; align-items:center; gap:.9rem; margin-bottom:.8rem; }
 .avatar { width:44px; height:44px; border-radius:50%; object-fit:cover; box-shadow:0 2px 6px rgba(0,0,0,.12); }
@@ -212,16 +265,16 @@ header p { font-size: 1.1rem; }
 
 /* 導航列 - 手機版取消固定 */
 nav { 
-  padding: .8rem .5rem; 
-  position: relative;
-  top: auto;
+padding: .8rem .5rem; 
+position: relative;
+top: auto;
 }
 nav a { 
-  display: block; 
-  margin: .4rem auto; 
-  padding: .6rem 1rem;
-  font-size: 1rem;
-  max-width: 90%;
+display: block; 
+margin: .4rem auto; 
+padding: .6rem 1rem;
+font-size: 1rem;
+max-width: 90%;
 }
 
 /* Hero 調整 */
@@ -319,18 +372,18 @@ header h1 { font-size: 1.8rem; }
 <div class="hero" id="home">
 <div class="hero-slider">
 <div class="hero-slider-track" id="heroSliderTrack">
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1920&h=1080&fit=crop" alt="露營星空" />
-  </div>
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=1920&h=1080&fit=crop" alt="營火聚會" />
-  </div>
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1537905569824-f89f14cceb68?w=1920&h=1080&fit=crop" alt="山林美景" />
-  </div>
-  <div class="hero-slide">
-    <img src="https://images.unsplash.com/photo-1445308394109-4ec2920981b1?w=1920&h=1080&fit=crop" alt="露營裝備" />
-  </div>
+<div class="hero-slide">
+  <img src="https://images.unsplash.com/photo-1504280390367-361c6d9f38f4?w=1920&h=1080&fit=crop" alt="露營星空" />
+</div>
+<div class="hero-slide">
+  <img src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=1920&h=1080&fit=crop" alt="營火聚會" />
+</div>
+<div class="hero-slide">
+  <img src="https://images.unsplash.com/photo-1537905569824-f89f14cceb68?w=1920&h=1080&fit=crop" alt="山林美景" />
+</div>
+<div class="hero-slide">
+  <img src="https://images.unsplash.com/photo-1445308394109-4ec2920981b1?w=1920&h=1080&fit=crop" alt="露營裝備" />
+</div>
 </div>
 </div>
 
@@ -352,25 +405,25 @@ header h1 { font-size: 1.8rem; }
 <h2 class="section-title" id="features">活動特色</h2>
 <div class="features">
 <div class="feature-card">
-  <img class="feature-img" src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=600&h=400&fit=crop" alt="絕佳景觀" />
-  <div class="feature-content">
-    <h3>🌲 山野秘境 🌲</h3>
-    <p>晨間日出<br>雲霧繚繞<br>夜晚星空</p>
-  </div>
+<img class="feature-img" src="https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?w=600&h=400&fit=crop" alt="絕佳景觀" />
+<div class="feature-content">
+  <h3>🌲 山野秘境 🌲</h3>
+  <p>晨間日出<br>雲霧繚繞<br>夜晚星空</p>
+</div>
 </div>
 <div class="feature-card">
-  <img class="feature-img" src="https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=600&h=400&fit=crop" alt="完善設施" />
-  <div class="feature-content">
-    <h3>🔥 營區包場 🔥</h3>
-    <p>營區只有自己人<br>愛怎麼玩就怎麼玩<br>不用擔心打擾到別人</p>
-  </div>
+<img class="feature-img" src="https://images.unsplash.com/photo-1504851149312-7a075b496cc7?w=600&h=400&fit=crop" alt="完善設施" />
+<div class="feature-content">
+  <h3>🔥 營區包場 🔥</h3>
+  <p>營區只有自己人<br>愛怎麼玩就怎麼玩<br>不用擔心打擾到別人</p>
+</div>
 </div>
 <div class="feature-card">
-  <img class="feature-img" src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=400&fit=crop" alt="團體活動" />
-  <div class="feature-content">
-    <h3>👥 團體活動 👥</h3>
-    <p>DJ表演<br>團康遊戲<br>音樂 烤肉 喝酒 觀星</p>
-  </div>
+<img class="feature-img" src="https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?w=600&h=400&fit=crop" alt="團體活動" />
+<div class="feature-content">
+  <h3>👥 團體活動 👥</h3>
+  <p>DJ表演<br>團康遊戲<br>音樂 烤肉 喝酒 觀星</p>
+</div>
 </div>
 </div>
 
@@ -378,95 +431,95 @@ header h1 { font-size: 1.8rem; }
 <section class="tips-section" id="tips">
 <h2 class="section-title">露營小知識</h2>
 <div class="tips-wrap">
-  <!-- 左:圖片輪播 + 手風琴Q&A -->
-  <div class="tips-card">
-    <div class="tips-title">🧭 新手必看</div>
-    <p class="tips-desc">第一次露營也不怕!以下整理最常見問題與實用建議。</p>
-    
-    <!-- 圖片輪播 -->
-    <div class="qa-gallery" id="qaGallery">
-      <button class="qa-arrow prev" aria-label="上一張">‹</button>
-      <div class="qa-gallery-track" id="qaGalleryTrack">
-        <div class="qa-gallery-slide">
-          <img src="https://github.com/RandomBeanss/camping-website/blob/main/uvRG6UNM6wsBP2an9xy9Hh.png?raw=true" alt="露營帳篷與星空" />
-        </div>
-        <div class="qa-gallery-slide">
-          <img src="https://github.com/RandomBeanss/camping-website/blob/main/31520.jpg?raw=true" alt="營火與朋友" />
-        </div>
-        <div class="qa-gallery-slide">
-          <img src="https://github.com/RandomBeanss/camping-website/blob/main/31521.jpg?raw=true" alt="山林露營景觀" />
-        </div>
-        <div class="qa-gallery-slide">
-          <img src="https://github.com/RandomBeanss/camping-website/blob/main/31523.jpg?raw=true" alt="露營裝備" />
-        </div>
-        <div class="qa-gallery-slide">
-          <img src="https://github.com/RandomBeanss/camping-website/blob/main/31526.jpg?raw=true" alt="日出露營" />
-        </div>
+<!-- 左:圖片輪播 + 手風琴Q&A -->
+<div class="tips-card">
+  <div class="tips-title">🧭 新手必看</div>
+  <p class="tips-desc">第一次露營也不怕!以下整理最常見問題與實用建議。</p>
+  
+  <!-- 圖片輪播 -->
+  <div class="qa-gallery" id="qaGallery">
+    <button class="qa-arrow prev" aria-label="上一張">‹</button>
+    <div class="qa-gallery-track" id="qaGalleryTrack">
+      <div class="qa-gallery-slide">
+        <img src="https://github.com/RandomBeanss/camping-website/blob/main/uvRG6UNM6wsBP2an9xy9Hh.png?raw=true" alt="露營帳篷與星空" />
       </div>
-      <button class="qa-arrow next" aria-label="下一張">›</button>
-      <div class="qa-dots" id="qaDots">
-        <span class="qa-dot active" data-index="0"></span>
-        <span class="qa-dot" data-index="1"></span>
-        <span class="qa-dot" data-index="2"></span>
-        <span class="qa-dot" data-index="3"></span>
-        <span class="qa-dot" data-index="4"></span>
+      <div class="qa-gallery-slide">
+        <img src="https://github.com/RandomBeanss/camping-website/blob/main/31520.jpg?raw=true" alt="營火與朋友" />
+      </div>
+      <div class="qa-gallery-slide">
+        <img src="https://github.com/RandomBeanss/camping-website/blob/main/31521.jpg?raw=true" alt="山林露營景觀" />
+      </div>
+      <div class="qa-gallery-slide">
+        <img src="https://github.com/RandomBeanss/camping-website/blob/main/31523.jpg?raw=true" alt="露營裝備" />
+      </div>
+      <div class="qa-gallery-slide">
+        <img src="https://github.com/RandomBeanss/camping-website/blob/main/31526.jpg?raw=true" alt="日出露營" />
       </div>
     </div>
-
-    <div class="accordion" id="accordion">
-      <div class="acc-item">
-        <button class="acc-btn"><span>我要帶哪些必備裝備?</span><i class="acc-icon">+</i></button>
-        <div class="acc-panel">
-          必需品:帳篷&睡墊&睡袋<br>推薦攜帶:炊具、地墊、燈具、桌椅、餐具、延長線、防蚊用品
-        </div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-btn"><span>怎麼選帳篷與睡袋溫標?</span><i class="acc-icon">+</i></button>
-        <div class="acc-panel">
-          帳篷以「人數+1」更舒適<br>睡袋看最低使用溫度,當天建議選擇秋季睡袋,適用溫度5~15度
-        </div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-btn"><span>遇到下雨怎麼辦?</span><i class="acc-icon">+</i></button>
-        <div class="acc-panel">
-          檢查帳篷外帳與地墊、拉好營繩<br>行李用大塑膠袋打包,鞋子架高防積水<br>但希望這些東西都用不到...
-        </div>
-      </div>
-      <div class="acc-item">
-        <button class="acc-btn"><span>露營食材怎麼處理?</span><i class="acc-icon">+</i></button>
-        <div class="acc-panel">
-          營區提供商用冰箱,冷凍冷藏都有<br>早餐:煎蛋+麵包+起司 輕鬆簡單好處理<br>午晚餐:烤肉及網上找的簡單料理,來點小酒就更美好了!
-        </div>
-      </div>
-    </div>
-    <div class="tips-badges">
-      <span class="tips-badge">裝備清單</span>
-      <span class="tips-badge">睡袋選擇</span>
-      <span class="tips-badge">下雨對策</span>
-      <span class="tips-badge">食材建議</span>
+    <button class="qa-arrow next" aria-label="下一張">›</button>
+    <div class="qa-dots" id="qaDots">
+      <span class="qa-dot active" data-index="0"></span>
+      <span class="qa-dot" data-index="1"></span>
+      <span class="qa-dot" data-index="2"></span>
+      <span class="qa-dot" data-index="3"></span>
+      <span class="qa-dot" data-index="4"></span>
     </div>
   </div>
 
-  <!-- 右:快速清單 + 露營介紹 -->
-  <div class="tips-list">
-    <div class="tips-title">🧰 快速檢查清單</div>
-    <ul>
-      <li><span class="bullet"></span><div>照明:頭燈/營燈、備用電池或行動電源</div></li>
-      <li><span class="bullet"></span><div>睡眠:睡袋、睡墊、枕頭、保暖衣物</div></li>
-      <li><span class="bullet"></span><div>炊事:卡式爐/噴射爐、瓦斯罐、打火機、餐具</div></li>
-      <li><span class="bullet"></span><div>飲料:咖啡、茶、軟性飲料、酒</div></li>
-      <li><span class="bullet"></span><div>清潔:垃圾袋、衛生紙、濕紙巾、環保洗劑</div></li>
-      <li><span class="bullet"></span><div>安全:個人藥品、蟲咬藥、防蚊液、防曬、頭盔(活動)</div></li>
-    </ul>
-    <div class="note">提醒:山區日夜溫差大,晚間易起風,請備保暖層與防風外套</div>
-
-    <!-- 露營介紹 -->
-    <div class="tips-video" style="margin-top:1rem;">
-      <div class="tips-title">▶️ 必備品介紹</div>
-      <p class="tips-desc">可以花5分鐘,聽聽我推薦的必備品</p>
-      <iframe class="yt-frame" src="https://www.youtube.com/embed/qoup7FVy5PQ?si=HUjihEvl_SBdyKV6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  <div class="accordion" id="accordion">
+    <div class="acc-item">
+      <button class="acc-btn"><span>我要帶哪些必備裝備?</span><i class="acc-icon">+</i></button>
+      <div class="acc-panel">
+        必需品:帳篷&睡墊&睡袋<br>推薦攜帶:炊具、地墊、燈具、桌椅、餐具、延長線、防蚊用品
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn"><span>怎麼選帳篷與睡袋溫標?</span><i class="acc-icon">+</i></button>
+      <div class="acc-panel">
+        帳篷以「人數+1」更舒適<br>睡袋看最低使用溫度,當天建議選擇秋季睡袋,適用溫度5~15度
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn"><span>遇到下雨怎麼辦?</span><i class="acc-icon">+</i></button>
+      <div class="acc-panel">
+        檢查帳篷外帳與地墊、拉好營繩<br>行李用大塑膠袋打包,鞋子架高防積水<br>但希望這些東西都用不到...
+      </div>
+    </div>
+    <div class="acc-item">
+      <button class="acc-btn"><span>露營食材怎麼處理?</span><i class="acc-icon">+</i></button>
+      <div class="acc-panel">
+        營區提供商用冰箱,冷凍冷藏都有<br>早餐:煎蛋+麵包+起司 輕鬆簡單好處理<br>午晚餐:烤肉及網上找的簡單料理,來點小酒就更美好了!
+      </div>
     </div>
   </div>
+  <div class="tips-badges">
+    <span class="tips-badge">裝備清單</span>
+    <span class="tips-badge">睡袋選擇</span>
+    <span class="tips-badge">下雨對策</span>
+    <span class="tips-badge">食材建議</span>
+  </div>
+</div>
+
+<!-- 右:快速清單 + 露營介紹 -->
+<div class="tips-list">
+  <div class="tips-title">🧰 快速檢查清單</div>
+  <ul>
+    <li><span class="bullet"></span><div>照明:頭燈/營燈、備用電池或行動電源</div></li>
+    <li><span class="bullet"></span><div>睡眠:睡袋、睡墊、枕頭、保暖衣物</div></li>
+    <li><span class="bullet"></span><div>炊事:卡式爐/噴射爐、瓦斯罐、打火機、餐具</div></li>
+    <li><span class="bullet"></span><div>飲料:咖啡、茶、軟性飲料、酒</div></li>
+    <li><span class="bullet"></span><div>清潔:垃圾袋、衛生紙、濕紙巾、環保洗劑</div></li>
+    <li><span class="bullet"></span><div>安全:個人藥品、蟲咬藥、防蚊液、防曬、頭盔(活動)</div></li>
+  </ul>
+  <div class="note">提醒:山區日夜溫差大,晚間易起風,請備保暖層與防風外套</div>
+
+  <!-- 露營介紹 -->
+  <div class="tips-video" style="margin-top:1rem;">
+    <div class="tips-title">▶️ 必備品介紹</div>
+    <p class="tips-desc">可以花5分鐘,聽聽我推薦的必備品</p>
+    <iframe class="yt-frame" src="https://www.youtube.com/embed/qoup7FVy5PQ?si=HUjihEvl_SBdyKV6" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+  </div>
+</div>
 </div>
 </section>
 
@@ -474,65 +527,65 @@ header h1 { font-size: 1.8rem; }
 <section class="location-section" id="location">
 <h2 class="section-title">活動資訊</h2>
 <div class="location-wrap">
-  <!-- 左側:地圖 -->
-  <div class="map-container">
-    <iframe 
-      src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3660.003301577906!2d120.7074623762734!3d23.460345399848144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346ee80869ba1507%3A0x982a57e04d83b7e7!2z56a_55Sw6L6y6I6K!5e0!3m2!1szh-TW!2stw!4v1763041553947!5m2!1szh-TW!2stw"
-      width="100%" 
-      height="100%" 
-      style="border:0; border-radius:12px;" 
-      allowfullscreen="" 
-      loading="lazy" 
-      referrerpolicy="no-referrer-when-downgrade">
-    </iframe>
-  </div>
+<!-- 左側:地圖 -->
+<div class="map-container">
+  <iframe 
+    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3660.003301577906!2d120.7074623762734!3d23.460345399848144!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x346ee80869ba1507%3A0x982a57e04d83b7e7!2z56a_55Sw6L6y6I6K!5e0!3m2!1szh-TW!2stw!4v1763041553947!5m2!1szh-TW!2stw"
+    width="100%" 
+    height="100%" 
+    style="border:0; border-radius:12px;" 
+    allowfullscreen="" 
+    loading="lazy" 
+    referrerpolicy="no-referrer-when-downgrade">
+  </iframe>
+</div>
 
-  <!-- 右側:營地資訊 -->
-  <div class="map-info">
-    <div class="info-item highlight">
-      <span class="info-icon">📅</span>
-      <div class="info-content">
-        <strong>活動日期</strong>
-        <p>2026/02/27(五)- 03/01(日)</p>
-        <span class="countdown-badge" id="countdown">⏰ 計算中...</span>
-      </div>
-    </div>
-    <div class="info-item highlight">
-      <span class="info-icon">⏰</span>
-      <div class="info-content">
-        <strong>報名截止日期</strong>
-        <p>2026/01/31(六) 23:59</p>
-      </div>
-    </div>
-    <div class="info-item highlight">
-      <span class="info-icon">💰</span>
-      <div class="info-content">
-        <strong>參加場地費</strong>
-        <p>每人 NT$ 1,300 元</p>
-      </div>
-    </div>
-    <div class="info-item highlight">
-      <span class="info-icon">📌</span>
-      <div class="info-content">
-        <strong>營地地址</strong>
-        <p>嘉義阿里山 禾田農莊</p>
-      </div>
-    </div>
-    <div class="info-item highlight">
-      <span class="info-icon">🚗</span>
-      <div class="info-content">
-        <strong>交通方式</strong>
-        <p>嘉義火車站 → 禾田農莊(車程約65分鐘)</p>
-      </div>
-    </div>
-    <div class="info-item highlight">
-      <span class="info-icon">🚌</span>
-      <div class="info-content">
-        <strong>友軍支援</strong>
-        <p>嘉義火車站 → 禾田農莊(每人每趟補貼250元油錢)</p>
-      </div>
+<!-- 右側:營地資訊 -->
+<div class="map-info">
+  <div class="info-item highlight">
+    <span class="info-icon">📅</span>
+    <div class="info-content">
+      <strong>活動日期</strong>
+      <p>2026/02/27(五)- 03/01(日)</p>
+      <span class="countdown-badge" id="countdown">⏰ 計算中...</span>
     </div>
   </div>
+  <div class="info-item highlight">
+    <span class="info-icon">⏰</span>
+    <div class="info-content">
+      <strong>報名截止日期</strong>
+      <p>2026/01/31(六) 23:59</p>
+    </div>
+  </div>
+  <div class="info-item highlight">
+    <span class="info-icon">💰</span>
+    <div class="info-content">
+      <strong>參加場地費</strong>
+      <p>每人 NT$ 1,300 元</p>
+    </div>
+  </div>
+  <div class="info-item highlight">
+    <span class="info-icon">📌</span>
+    <div class="info-content">
+      <strong>營地地址</strong>
+      <p>嘉義阿里山 禾田農莊</p>
+    </div>
+  </div>
+  <div class="info-item highlight">
+    <span class="info-icon">🚗</span>
+    <div class="info-content">
+      <strong>交通方式</strong>
+      <p>嘉義火車站 → 禾田農莊(車程約65分鐘)</p>
+    </div>
+  </div>
+  <div class="info-item highlight">
+    <span class="info-icon">🚌</span>
+    <div class="info-content">
+      <strong>友軍支援</strong>
+      <p>嘉義火車站 → 禾田農莊(每人每趟補貼250元油錢)</p>
+    </div>
+  </div>
+</div>
 </div>
 </section>
 
@@ -541,37 +594,37 @@ header h1 { font-size: 1.8rem; }
 <div class="container">
 <h2 class="section-title">🎬 第一屆回顧</h2>
 <p style="text-align: center; color: #555; font-size: 1.1rem; margin-bottom: 1rem;">
-  看看我們第一次舉辦的照片吧!很精彩喔!
+看看我們第一次舉辦的照片吧!很精彩喔!
 </p>
 
 <div class="photo-grid">
-  <div class="photo-item" data-index="0">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(0).jpg?raw=true" alt="營火晚會" />
-  </div>
-  <div class="photo-item" data-index="1">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(1).png?raw=true" alt="星空帳篷" />
-  </div>
-  <div class="photo-item" data-index="2">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(2).jpg?raw=true" alt="山林美景" />
-  </div>
-  <div class="photo-item" data-index="3">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(3).jpg?raw=true" alt="團體合照" />
-  </div>
-  <div class="photo-item" data-index="4">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(4).jpg?raw=true" alt="露營裝備" />
-  </div>
-  <div class="photo-item" data-index="5">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(5).jpg?raw=true" alt="日出時刻" />
-  </div>
-  <div class="photo-item" data-index="6">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(6).jpg?raw=true" alt="烤肉時光" />
-  </div>
-  <div class="photo-item" data-index="7">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(7).jpg?raw=true" alt="咖啡時光" />
-  </div>
-  <div class="photo-item" data-index="8">
-    <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(8).jpg?raw=true" alt="音樂派對" />
-  </div>
+<div class="photo-item" data-index="0">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(0).jpg?raw=true" alt="營火晚會" />
+</div>
+<div class="photo-item" data-index="1">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(1).png?raw=true" alt="星空帳篷" />
+</div>
+<div class="photo-item" data-index="2">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(2).jpg?raw=true" alt="山林美景" />
+</div>
+<div class="photo-item" data-index="3">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(3).jpg?raw=true" alt="團體合照" />
+</div>
+<div class="photo-item" data-index="4">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(4).jpg?raw=true" alt="露營裝備" />
+</div>
+<div class="photo-item" data-index="5">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(5).jpg?raw=true" alt="日出時刻" />
+</div>
+<div class="photo-item" data-index="6">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(6).jpg?raw=true" alt="烤肉時光" />
+</div>
+<div class="photo-item" data-index="7">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(7).jpg?raw=true" alt="咖啡時光" />
+</div>
+<div class="photo-item" data-index="8">
+  <img src="https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(8).jpg?raw=true" alt="音樂派對" />
+</div>
 </div>
 </div>
 </section>
@@ -593,140 +646,140 @@ header h1 { font-size: 1.8rem; }
 <h2 class="section-title">參加者推薦</h2>
 
 <div class="carousel-wrapper">
-  <button class="arrow prev" aria-label="上一頁">‹</button>
-  <div class="carousel" aria-roledescription="carousel">
-    <div class="carousel-track" id="carouselTrack">
-      <div class="slide">
-        <div class="cards">
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Yuen.png?raw=true" alt="頭像-小柏"/>
-              <div class="meta">
-                <span class="name">新莊粉色皮卡丘</span>
-                <span class="date">2025-11-13</span>
-                <div class="tags"><span class="tag">理性飲酒</span></div>
-              </div>
+<button class="arrow prev" aria-label="上一頁">‹</button>
+<div class="carousel" aria-roledescription="carousel">
+  <div class="carousel-track" id="carouselTrack">
+    <div class="slide">
+      <div class="cards">
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Yuen.png?raw=true" alt="頭像-小柏"/>
+            <div class="meta">
+              <span class="name">新莊粉色皮卡丘</span>
+              <span class="date">2025-11-13</span>
+              <div class="tags"><span class="tag">理性飲酒</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">主揪人很好,用起來很舒服</p>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Rui.png?raw=true" alt="頭像-阿葵"/>
-              <div class="meta">
-                <span class="name">Rui幫我rui管</span>
-                <span class="date">2025-11-13</span>
-                <div class="tags"><span class="tag">菇菇好吃</span><span class="tag">寵物友善</span></div>
-              </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">主揪人很好,用起來很舒服</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Rui.png?raw=true" alt="頭像-阿葵"/>
+            <div class="meta">
+              <span class="name">Rui幫我rui管</span>
+              <span class="date">2025-11-13</span>
+              <div class="tags"><span class="tag">菇菇好吃</span><span class="tag">寵物友善</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">主辦和場地很好,有很多草,沒有警察</p>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Kaze.png?raw=true" alt="頭像-Tank"/>
-              <div class="meta">
-                <span class="name">卡賊maru</span>
-                <span class="date">2025-11-13</span>
-                <div class="tags"><span class="tag">專人接送</span></div>
-              </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">主辦和場地很好,有很多草,沒有警察</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Kaze.png?raw=true" alt="頭像-Tank"/>
+            <div class="meta">
+              <span class="name">卡賊maru</span>
+              <span class="date">2025-11-13</span>
+              <div class="tags"><span class="tag">專人接送</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">有專車接送,超級貼心的</p>
           </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">有專車接送,超級貼心的</p>
         </div>
       </div>
+    </div>
 
-      <div class="slide">
-        <div class="cards">
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Tian.png?raw=true" alt="頭像-Nova"/>
-              <div class="meta">
-                <span class="name">天天都需要你愛</span>
-                <span class="date">2025-11-13</span>
-                <div class="tags"><span class="tag">清純底線</span><span class="tag">主辦很好用</span></div>
-              </div>
+    <div class="slide">
+      <div class="cards">
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Tian.png?raw=true" alt="頭像-Nova"/>
+            <div class="meta">
+              <span class="name">天天都需要你愛</span>
+              <span class="date">2025-11-13</span>
+              <div class="tags"><span class="tag">清純底線</span><span class="tag">主辦很好用</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">迷幻電音時刻,小孩子們最喜歡了</p>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Aspeng.png?raw=true" alt="頭像-Kiwi"/>
-              <div class="meta">
-                <span class="name">阿斯胖哥</span>
-                <span class="date">2025-11-13</span>
-                <div class="tags"><span class="tag">讚</span></div>
-              </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">迷幻電音時刻,小孩子們最喜歡了</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/Aspeng.png?raw=true" alt="頭像-Kiwi"/>
+            <div class="meta">
+              <span class="name">阿斯胖哥</span>
+              <span class="date">2025-11-13</span>
+              <div class="tags"><span class="tag">讚</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">非常好豆子,活動非常好</p>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/RPR.png?raw=true" alt="頭像-阿哲"/>
-              <div class="meta">
-                <span class="name">RPR</span>
-                <span class="date">2025-11-15</span>
-                <div class="tags"><span class="tag">酒精就是垃圾</span><span class="tag">自然組</span></div>
-              </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">非常好豆子,活動非常好</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/RPR.png?raw=true" alt="頭像-阿哲"/>
+            <div class="meta">
+              <span class="name">RPR</span>
+              <span class="date">2025-11-15</span>
+              <div class="tags"><span class="tag">酒精就是垃圾</span><span class="tag">自然組</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">活動很讚 老少咸宜 希望有唱歌環節</p>
           </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">活動很讚 老少咸宜 希望有唱歌環節</p>
         </div>
       </div>
+    </div>
 
-      <div class="slide">
-        <div class="cards">
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/MILK.png?raw=true" alt="頭像-Momo"/>
-              <div class="meta">
-                <span class="name">林鳳營</span>
-                <span class="date">2025-11-15</span>
-                <div class="tags"><span class="tag">植物烹調</span><span class="tag">有男娘</span></div>
-              </div>
+    <div class="slide">
+      <div class="cards">
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/MILK.png?raw=true" alt="頭像-Momo"/>
+            <div class="meta">
+              <span class="name">林鳳營</span>
+              <span class="date">2025-11-15</span>
+              <div class="tags"><span class="tag">植物烹調</span><span class="tag">有男娘</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">best femboy is mitsunosame<br>＊change my mind＊</p>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/MaruBoshi.png?raw=true" alt="頭像-老吳"/>
-              <div class="meta">
-                <span class="name">南台灣自然人</span>
-                <span class="date">2025-11-16</span>
-                <div class="tags"><span class="tag">自然組</span><span class="tag">植物烹調</span></div>
-              </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">best femboy is mitsunosame<br>＊change my mind＊</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/MaruBoshi.png?raw=true" alt="頭像-老吳"/>
+            <div class="meta">
+              <span class="name">南台灣自然人</span>
+              <span class="date">2025-11-16</span>
+              <div class="tags"><span class="tag">自然組</span><span class="tag">植物烹調</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">認識自然,擁抱自然,觸摸自然,呼吸自然的好活動</p>
           </div>
-          <div class="card">
-            <div class="card-header">
-              <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/KZ.png?raw=true" alt="頭像-Ren"/>
-              <div class="meta">
-                <span class="name">巧KZ</span>
-                <span class="date">2025-11-16</span>
-                <div class="tags"><span class="tag">草本專家</span><span class="tag">18吋Sub</span></div>
-              </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">認識自然,擁抱自然,觸摸自然,呼吸自然的好活動</p>
+        </div>
+        <div class="card">
+          <div class="card-header">
+            <img class="avatar" src="https://github.com/RandomBeanss/camping-website/blob/main/KZ.png?raw=true" alt="頭像-Ren"/>
+            <div class="meta">
+              <span class="name">巧KZ</span>
+              <span class="date">2025-11-16</span>
+              <div class="tags"><span class="tag">草本專家</span><span class="tag">18吋Sub</span></div>
             </div>
-            <div class="rating">⭐⭐⭐⭐⭐</div>
-            <p class="content">自從我阿嬤參加過後,整個人都活了過來<br>會唱會跳樣樣來</p>
           </div>
+          <div class="rating">⭐⭐⭐⭐⭐</div>
+          <p class="content">自從我阿嬤參加過後,整個人都活了過來<br>會唱會跳樣樣來</p>
         </div>
       </div>
     </div>
   </div>
-  <button class="arrow next" aria-label="下一頁">›</button>
+</div>
+<button class="arrow next" aria-label="下一頁">›</button>
 
-  <div class="controls" aria-label="頁面指示器">
-    <span class="dot active" data-index="0"></span>
-    <span class="dot" data-index="1"></span>
-    <span class="dot" data-index="2"></span>
-  </div>
+<div class="controls" aria-label="頁面指示器">
+  <span class="dot active" data-index="0"></span>
+  <span class="dot" data-index="1"></span>
+  <span class="dot" data-index="2"></span>
+</div>
 </div>
 </div>
 </section>
@@ -752,21 +805,21 @@ const diff = eventDate - now;
 const countdownEl = document.getElementById('countdown');
 
 if (diff <= 0) {
-  countdownEl.textContent = '🎉 活動進行中!';
-  countdownEl.style.background = 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)';
-  return;
+countdownEl.textContent = '🎉 活動進行中!';
+countdownEl.style.background = 'linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%)';
+return;
 }
 
 const days = Math.floor(diff / (1000 * 60 * 60 * 24));
 const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
 
 if (days > 0) {
-  countdownEl.textContent = `⏰ 還有 ${days} 天`;
+countdownEl.textContent = ⏰ 還有 ${days} 天;
 } else if (hours > 0) {
-  countdownEl.textContent = `⏰ 還有 ${hours} 小時`;
+countdownEl.textContent = ⏰ 還有 ${hours} 小時;
 } else {
-  const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-  countdownEl.textContent = `⏰ 還有 ${minutes} 分鐘`;
+const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
+countdownEl.textContent = ⏰ 還有 ${minutes} 分鐘;
 }
 }
 
@@ -782,13 +835,13 @@ let heroTimer;
 
 function heroGoTo(i) {
 heroIndex = (i + heroSlides.length) % heroSlides.length;
-heroTrack.style.transform = `translateX(-${heroIndex * 100}%)`;
+heroTrack.style.transform = translateX(-${heroIndex * 100}%);
 heroDots.forEach((d, di) => d.classList.toggle('active', di === heroIndex));
 }
 
 function heroAutoPlay() {
 heroTimer = setInterval(() => {
-  heroGoTo(heroIndex + 1);
+heroGoTo(heroIndex + 1);
 }, 4000);
 }
 
@@ -802,45 +855,44 @@ heroAutoPlay();
 
 // ========== 回到頂部按鈕 ==========
 window.addEventListener('scroll', () => {
-  const btn = document.querySelector('.back-to-top');
-  if (document.documentElement.scrollTop > 300) btn.classList.add('show');
-  else btn.classList.remove('show');
+const btn = document.querySelector('.back-to-top');
+if (document.documentElement.scrollTop > 300) btn.classList.add('show');
+else btn.classList.remove('show');
 });
 
-function scrollToTop() { 
-  window.scrollTo({ top: 0, behavior: 'smooth' }); 
+function scrollToTop() {
+window.scrollTo({ top: 0, behavior: 'smooth' });
 }
 
 // ========== 手風琴 ==========
 document.querySelectorAll('.acc-btn').forEach((btn) => {
-  btn.addEventListener('click', () => {
-    const panel = btn.nextElementSibling;
-    const icon = btn.querySelector('.acc-icon');
-    const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
-    
-    // 關閉所有面板
-    document.querySelectorAll('.acc-panel').forEach(p => { 
-      p.style.maxHeight = null; 
-      p.classList.remove('open'); 
-    });
-    document.querySelectorAll('.acc-icon').forEach(i => i.textContent = '+');
-    
-    // 開啟當前面板
-    if (!open) {
-      panel.style.maxHeight = panel.scrollHeight + 'px';
-      panel.classList.add('open');
-      icon.textContent = '−';
-    }
-  });
+btn.addEventListener('click', () => {
+const panel = btn.nextElementSibling;
+const icon = btn.querySelector('.acc-icon');
+const open = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+// 關閉所有面板
+document.querySelectorAll('.acc-panel').forEach(p => { 
+  p.style.maxHeight = null; 
+  p.classList.remove('open'); 
+});
+document.querySelectorAll('.acc-icon').forEach(i => i.textContent = '+');
+
+// 開啟當前面板
+if (!open) {
+  panel.style.maxHeight = panel.scrollHeight + 'px';
+  panel.classList.add('open');
+  icon.textContent = '−';
+}
+});
 });
 
 // 預設展開第一個問題
 const firstPanel = document.querySelector('.acc-panel');
 const firstIcon = document.querySelector('.acc-btn .acc-icon');
-if (firstPanel) { 
-  firstPanel.style.maxHeight = firstPanel.scrollHeight + 'px'; 
-  firstPanel.classList.add('open'); 
-  if (firstIcon) firstIcon.textContent = '−'; 
+if (firstPanel) {
+firstPanel.style.maxHeight = firstPanel.scrollHeight + 'px';
+firstPanel.classList.add('open');
+if (firstIcon) firstIcon.textContent = '−';
 }
 
 // ========== Q&A 圖片輪播 (含自動播放) ==========
@@ -855,50 +907,50 @@ let qaTimer;
 let qaIsPaused = false;
 
 function qaGoTo(i) {
-  qaIndex = (i + qaSlides.length) % qaSlides.length;
-  qaTrack.style.transform = `translateX(-${qaIndex * 100}%)`;
-  qaDots.forEach((d, di) => d.classList.toggle('active', di === qaIndex));
+qaIndex = (i + qaSlides.length) % qaSlides.length;
+qaTrack.style.transform = translateX(-${qaIndex * 100}%);
+qaDots.forEach((d, di) => d.classList.toggle('active', di === qaIndex));
 }
 
 // 自動播放功能
 function qaAutoPlay() {
-  qaTimer = setInterval(() => {
-    if (!qaIsPaused) {
-      qaGoTo(qaIndex + 1);
-    }
-  }, 4000); // 每 4 秒切換一張
+qaTimer = setInterval(() => {
+if (!qaIsPaused) {
+qaGoTo(qaIndex + 1);
+}
+}, 4000); // 每 4 秒切換一張
 }
 
 // 重置自動播放
 function qaResetAutoPlay() {
-  clearInterval(qaTimer);
-  qaAutoPlay();
+clearInterval(qaTimer);
+qaAutoPlay();
 }
 
 // 圓點點擊
 qaDots.forEach(d => d.addEventListener('click', e => {
-  qaGoTo(parseInt(e.target.dataset.index));
-  qaResetAutoPlay();
+qaGoTo(parseInt(e.target.dataset.index));
+qaResetAutoPlay();
 }));
 
 // 箭頭點擊
 qaPrev.addEventListener('click', () => {
-  qaGoTo(qaIndex - 1);
-  qaResetAutoPlay();
+qaGoTo(qaIndex - 1);
+qaResetAutoPlay();
 });
 
 qaNext.addEventListener('click', () => {
-  qaGoTo(qaIndex + 1);
-  qaResetAutoPlay();
+qaGoTo(qaIndex + 1);
+qaResetAutoPlay();
 });
 
 // 滑鼠懸停暫停,移開繼續
 qaGallery.addEventListener('mouseenter', () => {
-  qaIsPaused = true;
+qaIsPaused = true;
 });
 
 qaGallery.addEventListener('mouseleave', () => {
-  qaIsPaused = false;
+qaIsPaused = false;
 });
 
 // 觸控/滑鼠拖曳切換
@@ -908,42 +960,42 @@ let qaIsDown = false;
 let qaIsDragging = false;
 
 qaGallery.addEventListener('pointerdown', e => {
-  qaIsDown = true;
-  qaIsDragging = false;
-  qaStartX = e.clientX;
-  qaCurrentX = e.clientX;
-  qaGallery.style.cursor = 'grabbing';
+qaIsDown = true;
+qaIsDragging = false;
+qaStartX = e.clientX;
+qaCurrentX = e.clientX;
+qaGallery.style.cursor = 'grabbing';
 });
 
 qaGallery.addEventListener('pointermove', e => {
-  if (!qaIsDown) return;
-  qaCurrentX = e.clientX;
-  const diff = Math.abs(qaCurrentX - qaStartX);
-  if (diff > 5) qaIsDragging = true;
+if (!qaIsDown) return;
+qaCurrentX = e.clientX;
+const diff = Math.abs(qaCurrentX - qaStartX);
+if (diff > 5) qaIsDragging = true;
 });
 
 qaGallery.addEventListener('pointerup', e => {
-  if (!qaIsDown) return;
-  qaIsDown = false;
-  qaGallery.style.cursor = 'grab';
-  
-  if (qaIsDragging) {
-    const dx = e.clientX - qaStartX;
-    if (dx > 50) {
-      qaGoTo(qaIndex - 1);
-      qaResetAutoPlay();
-    } else if (dx < -50) {
-      qaGoTo(qaIndex + 1);
-      qaResetAutoPlay();
-    }
-  }
-  qaIsDragging = false;
+if (!qaIsDown) return;
+qaIsDown = false;
+qaGallery.style.cursor = 'grab';
+
+if (qaIsDragging) {
+const dx = e.clientX - qaStartX;
+if (dx > 50) {
+qaGoTo(qaIndex - 1);
+qaResetAutoPlay();
+} else if (dx < -50) {
+qaGoTo(qaIndex + 1);
+qaResetAutoPlay();
+}
+}
+qaIsDragging = false;
 });
 
-qaGallery.addEventListener('pointerleave', () => { 
-  qaIsDown = false; 
-  qaIsDragging = false;
-  qaGallery.style.cursor = 'grab'; 
+qaGallery.addEventListener('pointerleave', () => {
+qaIsDown = false;
+qaIsDragging = false;
+qaGallery.style.cursor = 'grab';
 });
 
 // 防止拖曳時選取文字
@@ -960,58 +1012,58 @@ const photoItems = Array.from(document.querySelectorAll('.photo-item'));
 let currentLightboxIndex = 0;
 
 const lightboxImages = [
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(0).jpg?raw=true', caption: '營火晚會' },
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(1).png?raw=true', caption: '星空帳篷' },
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(2).jpg?raw=true', caption: '山林美景' },
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(3).jpg?raw=true', caption: '團體合照' },
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(4).jpg?raw=true', caption: '露營裝備' },
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(5).jpg?raw=true', caption: '日出時刻' },
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(6).jpg?raw=true', caption: '烤肉時光' },
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(7).jpg?raw=true', caption: '咖啡時光' },
-  { src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(8).jpg?raw=true', caption: '音樂派對' }
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(0).jpg?raw=true', caption: '營火晚會' },
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(1).png?raw=true', caption: '星空帳篷' },
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(2).jpg?raw=true', caption: '山林美景' },
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(3).jpg?raw=true', caption: '團體合照' },
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(4).jpg?raw=true', caption: '露營裝備' },
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(5).jpg?raw=true', caption: '日出時刻' },
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(6).jpg?raw=true', caption: '烤肉時光' },
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(7).jpg?raw=true', caption: '咖啡時光' },
+{ src: 'https://github.com/RandomBeanss/camping-website/blob/main/%E5%9B%9E%E9%A1%A7%20(8).jpg?raw=true', caption: '音樂派對' }
 ];
 
 photoItems.forEach(item => {
-  item.addEventListener('click', () => {
-    currentLightboxIndex = parseInt(item.dataset.index);
-    openLightbox();
-  });
+item.addEventListener('click', () => {
+currentLightboxIndex = parseInt(item.dataset.index);
+openLightbox();
+});
 });
 
 function openLightbox() {
-  lightbox.classList.add('active');
-  updateLightboxImage();
-  document.body.style.overflow = 'hidden';
+lightbox.classList.add('active');
+updateLightboxImage();
+document.body.style.overflow = 'hidden';
 }
 
 function closeLightbox() {
-  lightbox.classList.remove('active');
-  document.body.style.overflow = '';
+lightbox.classList.remove('active');
+document.body.style.overflow = '';
 }
 
 function changeLightbox(direction) {
-  currentLightboxIndex = (currentLightboxIndex + direction + lightboxImages.length) % lightboxImages.length;
-  updateLightboxImage();
+currentLightboxIndex = (currentLightboxIndex + direction + lightboxImages.length) % lightboxImages.length;
+updateLightboxImage();
 }
 
 function updateLightboxImage() {
-  const current = lightboxImages[currentLightboxIndex];
-  lightboxImg.src = current.src;
-  lightboxImg.alt = current.caption;
-  lightboxCounter.textContent = `${currentLightboxIndex + 1} / ${lightboxImages.length}`;
+const current = lightboxImages[currentLightboxIndex];
+lightboxImg.src = current.src;
+lightboxImg.alt = current.caption;
+lightboxCounter.textContent = ${currentLightboxIndex + 1} / ${lightboxImages.length};
 }
 
 // 鍵盤控制
 document.addEventListener('keydown', e => {
-  if (!lightbox.classList.contains('active')) return;
-  if (e.key === 'Escape') closeLightbox();
-  if (e.key === 'ArrowLeft') changeLightbox(-1);
-  if (e.key === 'ArrowRight') changeLightbox(1);
+if (!lightbox.classList.contains('active')) return;
+if (e.key === 'Escape') closeLightbox();
+if (e.key === 'ArrowLeft') changeLightbox(-1);
+if (e.key === 'ArrowRight') changeLightbox(1);
 });
 
 // 點擊背景關閉
 lightbox.addEventListener('click', e => {
-  if (e.target === lightbox) closeLightbox();
+if (e.target === lightbox) closeLightbox();
 });
 
 // ========== 參加者推薦輪播 ==========
@@ -1026,50 +1078,50 @@ let timer;
 let isPaused = false;
 
 function goTo(i) {
-  index = (i + slides.length) % slides.length;
-  track.style.transform = `translateX(-${index * 100}%)`;
-  dots.forEach((d, di) => d.classList.toggle('active', di === index));
+index = (i + slides.length) % slides.length;
+track.style.transform = translateX(-${index * 100}%);
+dots.forEach((d, di) => d.classList.toggle('active', di === index));
 }
 
 // 自動播放
-function autoPlay() { 
-  timer = setInterval(() => { 
-    if (!isPaused) {
-      goTo(index + 1); 
-    }
-  }, 5000); 
+function autoPlay() {
+timer = setInterval(() => {
+if (!isPaused) {
+goTo(index + 1);
+}
+}, 5000);
 }
 
 // 重置自動播放
-function resetAuto() { 
-  clearInterval(timer); 
-  autoPlay(); 
+function resetAuto() {
+clearInterval(timer);
+autoPlay();
 }
 
 // 圓點點擊
 dots.forEach(d => d.addEventListener('click', e => {
-  goTo(parseInt(e.target.dataset.index));
-  resetAuto();
+goTo(parseInt(e.target.dataset.index));
+resetAuto();
 }));
 
 // 箭頭點擊
 prev.addEventListener('click', () => {
-  goTo(index - 1);
-  resetAuto();
+goTo(index - 1);
+resetAuto();
 });
 
 next.addEventListener('click', () => {
-  goTo(index + 1);
-  resetAuto();
+goTo(index + 1);
+resetAuto();
 });
 
 // 滑鼠懸停暫停
 carouselWrapper.addEventListener('mouseenter', () => {
-  isPaused = true;
+isPaused = true;
 });
 
 carouselWrapper.addEventListener('mouseleave', () => {
-  isPaused = false;
+isPaused = false;
 });
 
 // 觸控/滑鼠拖曳切換
@@ -1078,43 +1130,43 @@ let currentX = 0;
 let isDown = false;
 let isDragging = false;
 
-track.addEventListener('pointerdown', e => { 
-  isDown = true; 
-  isDragging = false;
-  startX = e.clientX; 
-  currentX = e.clientX;
-  track.style.cursor = 'grabbing'; 
+track.addEventListener('pointerdown', e => {
+isDown = true;
+isDragging = false;
+startX = e.clientX;
+currentX = e.clientX;
+track.style.cursor = 'grabbing';
 });
 
 track.addEventListener('pointermove', e => {
-  if (!isDown) return;
-  currentX = e.clientX;
-  const diff = Math.abs(currentX - startX);
-  if (diff > 5) isDragging = true;
+if (!isDown) return;
+currentX = e.clientX;
+const diff = Math.abs(currentX - startX);
+if (diff > 5) isDragging = true;
 });
 
 track.addEventListener('pointerup', e => {
-  if (!isDown) return; 
-  isDown = false; 
-  track.style.cursor = 'grab';
-  
-  if (isDragging) {
-    const dx = e.clientX - startX;
-    if (dx > 60) {
-      goTo(index - 1);
-      resetAuto();
-    } else if (dx < -60) {
-      goTo(index + 1);
-      resetAuto();
-    }
-  }
-  isDragging = false;
+if (!isDown) return;
+isDown = false;
+track.style.cursor = 'grab';
+
+if (isDragging) {
+const dx = e.clientX - startX;
+if (dx > 60) {
+goTo(index - 1);
+resetAuto();
+} else if (dx < -60) {
+goTo(index + 1);
+resetAuto();
+}
+}
+isDragging = false;
 });
 
-track.addEventListener('pointerleave', () => { 
-  isDown = false; 
-  isDragging = false;
-  track.style.cursor = 'grab'; 
+track.addEventListener('pointerleave', () => {
+isDown = false;
+isDragging = false;
+track.style.cursor = 'grab';
 });
 
 // 防止拖曳時選取文字
@@ -1125,73 +1177,71 @@ autoPlay();
 
 // ========== 平滑滾動優化 ==========
 document.querySelectorAll('nav a[href^="#"]').forEach(anchor => {
-  anchor.addEventListener('click', function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute('href'));
-    if (target) {
-      const navHeight = document.querySelector('nav').offsetHeight;
-      const targetPosition = target.offsetTop - navHeight;
-      window.scrollTo({
-        top: targetPosition,
-        behavior: 'smooth'
-      });
-    }
-  });
+anchor.addEventListener('click', function (e) {
+e.preventDefault();
+const target = document.querySelector(this.getAttribute('href'));
+if (target) {
+const navHeight = document.querySelector('nav').offsetHeight;
+const targetPosition = target.offsetTop - navHeight;
+window.scrollTo({
+top: targetPosition,
+behavior: 'smooth'
+});
+}
+});
 });
 
 // ========== 圖片懶加載優化 ==========
 if ('IntersectionObserver' in window) {
-  const imageObserver = new IntersectionObserver((entries, observer) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        const img = entry.target;
-        if (img.dataset.src) {
-          img.src = img.dataset.src;
-          img.removeAttribute('data-src');
-        }
-        observer.unobserve(img);
-      }
-    });
-  });
+const imageObserver = new IntersectionObserver((entries, observer) => {
+entries.forEach(entry => {
+if (entry.isIntersecting) {
+const img = entry.target;
+if (img.dataset.src) {
+img.src = img.dataset.src;
+img.removeAttribute('data-src');
+}
+observer.unobserve(img);
+}
+});
+});
 
-  document.querySelectorAll('img[data-src]').forEach(img => {
-    imageObserver.observe(img);
-  });
+document.querySelectorAll('img[data-src]').forEach(img => {
+imageObserver.observe(img);
+});
 }
 
 // ========== 效能優化:節流函數 ==========
 function throttle(func, delay) {
-  let lastCall = 0;
-  return function(...args) {
-    const now = new Date().getTime();
-    if (now - lastCall < delay) return;
-    lastCall = now;
-    return func(...args);
-  };
+let lastCall = 0;
+return function(...args) {
+const now = new Date().getTime();
+if (now - lastCall < delay) return;
+lastCall = now;
+return func(...args);
+};
 }
 
 // 應用節流到滾動事件
 window.addEventListener('scroll', throttle(() => {
-  const btn = document.querySelector('.back-to-top');
-  if (document.documentElement.scrollTop > 300) btn.classList.add('show');
-  else btn.classList.remove('show');
+const btn = document.querySelector('.back-to-top');
+if (document.documentElement.scrollTop > 300) btn.classList.add('show');
+else btn.classList.remove('show');
 }, 100));
 
 // ========== 頁面載入完成提示 ==========
 window.addEventListener('load', () => {
-  console.log('🏕️ 搖曳露營網站已完全載入!');
-  console.log('📅 活動日期: 2026/02/27-03/01');
-  console.log('✨ 功能特色:');
-  console.log('  - Hero 自動輪播 (4秒)');
-  console.log('  - Q&A 圖片自動輪播 (4秒,懸停暫停)');
-  console.log('  - 參加者推薦輪播 (5秒,懸停暫停)');
-  console.log('  - 倒數計時功能');
-  console.log('  - Lightbox 照片檢視');
-  console.log('  - 響應式設計');
+console.log('🏕️ 搖曳露營網站已完全載入!');
+console.log('📅 活動日期: 2026/02/27-03/01');
+console.log('✨ 功能特色:');
+console.log('  - Hero 自動輪播 (4秒)');
+console.log('  - Q&A 圖片自動輪播 (4秒,懸停暫停)');
+console.log('  - 參加者推薦輪播 (5秒,懸停暫停)');
+console.log('  - 倒數計時功能');
+console.log('  - Lightbox 照片檢視');
+console.log('  - 響應式設計');
+console.log('  - 統一背景系統 (所有裝置一致)');
 });
 </script>
-</body>
-</html>
 
-
-
+</body> </html> ````
